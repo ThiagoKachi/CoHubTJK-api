@@ -1,11 +1,11 @@
 import 'dotenv/config';
 //
-import { env } from '@config/env';
 import FastifyCORS from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import FastifyJWT from '@fastify/jwt';
 import rateLimit from '@fastify/rate-limit';
-import { AppError } from '@shared/errors/AppError';
+import { env } from '@main/config/env';
+import { AppError } from '@presentation/errors/AppError';
 import Fastify, { FastifyError, FastifyReply, FastifyRequest } from 'fastify';
 import { ZodError } from 'zod';
 import '../libs/handleBars';

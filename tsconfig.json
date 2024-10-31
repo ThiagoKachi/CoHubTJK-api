@@ -11,14 +11,23 @@
     "strictPropertyInitialization": false,
     "baseUrl": "./",
     "paths": {
-      "@config/*": [
-        "src/config/*"
+      "@data/*": [
+        "src/data/*"
       ],
-      "@modules/*": [
-        "src/modules/*"
+      "@domain/*": [
+        "src/domain/*"
       ],
-      "@shared/*": [
-        "src/shared/*"
+      "@infra/*": [
+        "src/infra/*"
+      ],
+      "@main/*": [
+        "src/main/*"
+      ],
+      "@presentation/*": [
+        "src/presentation/*"
+      ],
+      "@validation/*": [
+        "src/validation/*"
       ]
     },
     "typeRoots": [
