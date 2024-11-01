@@ -5,7 +5,7 @@ export interface AccountModel {
   email: string;
   name: string;
   password: string;
-  token: string;
+  token: string | null;
   role: AccountType;
   created_at: Date;
 }
