@@ -8,7 +8,6 @@ import { env } from '@main/config/env';
 import { AppError } from '@presentation/errors/AppError';
 import Fastify, { FastifyError, FastifyReply, FastifyRequest } from 'fastify';
 import { ZodError } from 'zod';
-import '../libs/handleBars';
 import { appRoutes } from './routes';
 
 export const fastify = Fastify();

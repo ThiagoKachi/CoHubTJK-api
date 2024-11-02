@@ -2,9 +2,9 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 
 export async function authMiddleware(request: FastifyRequest, reply: FastifyReply) {
   try {
-    const { userId } = await request.jwtVerify() as { userId: string };
+    const { accountId } = await request.jwtVerify() as { accountId: string };
 
-    request.userId = userId;
+    request.accountId = accountId;
   } catch {
     return reply
       .code(401)

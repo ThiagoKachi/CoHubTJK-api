@@ -1,24 +1,36 @@
-import { AddAccountRepository } from '@data/protocols/db/account/add-account-repository';
+import { AddAccount } from '@domain/usecases/account/add-account';
+import { AppError } from '@presentation/errors/AppError';
 import { Controller } from '@presentation/protocols/controller';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/http';
-import { EmailValidator } from '@validation/protocols/email-validator';
+import { SignupValidator } from '@validation/protocols/signup-validator';
 
 export class SignupController implements Controller {
   constructor(
-    private readonly addAccount: AddAccountRepository,
-    private readonly emailValidator: EmailValidator
-
+    private readonly addAccount: AddAccount,
+    private readonly validator: SignupValidator
   ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    // Valida os dados
-    // Criar a conta
-    // Retornar uma resposta (Sem a senha)
+    const error = this.validator.validate(httpRequest.body);
+    if (error && !error.success && error.error.issues) {
+      throw new AppError(error.error.issues, 400);
+    }
+
     const { name, email, password } = httpRequest.body;
+
     const account = await this.addAccount.add({
       name,
       email,
       password
     });
+
+    if (!account) {
+      throw new AppError('User already exists', 409);
+    }
+
+    return {
+      statusCode: 201,
+      body: { ...account, password: undefined }
+    };
   }
 }
