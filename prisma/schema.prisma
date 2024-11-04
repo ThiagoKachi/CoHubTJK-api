@@ -32,23 +32,6 @@ model Account {
   @@map("accounts")
 }
 
-model Address {
-  id           String   @id @default(uuid()) @db.Uuid
-  street       String
-  number       Int
-  complement   String?
-  neighborhood String
-  city         String
-  state        String
-  postal_code  String
-  created_at   DateTime @default(now())
-  updated_at   DateTime @updatedAt
-
-  spaces Space[]
-
-  @@map("address")
-}
-
 model Space {
   id          String   @id @default(uuid()) @db.Uuid
   name        String
@@ -59,13 +42,21 @@ model Space {
   price       Decimal
   images      String[]
   resources   String[]
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
-  accountId   String   @db.Uuid
-  addressId   String   @db.Uuid
 
-  address Address @relation(fields: [addressId], references: [id])
-  adm     Account @relation(fields: [accountId], references: [id])
+  // Address
+  street       String
+  number       Int
+  complement   String?
+  neighborhood String
+  city         String
+  state        String
+  postal_code  String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  accountId  String   @db.Uuid
+
+  adm Account @relation(fields: [accountId], references: [id])
 
   @@map("spaces")
 }
