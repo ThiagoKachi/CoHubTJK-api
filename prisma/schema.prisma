@@ -27,5 +27,45 @@ model Account {
   role       Role     @default(MEMBER)
   created_at DateTime @default(now())
 
+  spaces Space[]
+
   @@map("accounts")
+}
+
+model Address {
+  id           String   @id @default(uuid()) @db.Uuid
+  street       String
+  number       Int
+  complement   String?
+  neighborhood String
+  city         String
+  state        String
+  postal_code  String
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  spaces Space[]
+
+  @@map("address")
+}
+
+model Space {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String
+  description String
+  capacity    Int
+  category    String
+  tags        String[]
+  price       Decimal
+  images      String[]
+  resources   String[]
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  accountId   String   @db.Uuid
+  addressId   String   @db.Uuid
+
+  address Address @relation(fields: [addressId], references: [id])
+  adm     Account @relation(fields: [accountId], references: [id])
+
+  @@map("spaces")
 }
