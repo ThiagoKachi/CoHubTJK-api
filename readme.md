@@ -7,7 +7,7 @@
 ### Cadastro de Usuário e Administrador
 > ## Sucesso
 
-- [x] Recebe uma requisição `POST` em `/api/signup`
+- [x] Recebe uma requisição `POST` em `/auth/sign-up`
 - [x] Valida os campos `nome`, `email`, `senha` e `papel` (usuário ou administrador)
 - [x] Salva o novo usuário no banco e retorna `201` com dados básicos do usuário (exceto senha)
 - [x] Criptografa a senha antes de salvar no banco de dados
@@ -22,16 +22,16 @@
 ### Login de Usuário e Administrador
 > ## Sucesso
 
-- [] Recebe uma requisição `POST` em `/api/login`
-- [] Valida `email` e `senha`
-- [] Autentica e gera um token `JWT` com permissões
-- [] Retorna `200` com o token e dados básicos do usuário
+- [x] Recebe uma requisição `POST` em `/auth/sign-in`
+- [x] Valida `email` e `senha`
+- [x] Autentica e gera um token `JWT` com permissões
+- [x] Retorna `200` com o token
 
 > ## Exceções
 
-- [] `400` se `email` ou `senha` estiverem ausentes ou inválidos
-- [] `401` se não houver correspondência com as credenciais fornecidas
-- [] `500` em caso de erro ao gerar o token
+- [x] `400` se `email` ou `senha` estiverem ausentes ou inválidos
+- [x] `401` se não houver correspondência com as credenciais fornecidas
+- [x] `500` em caso de erro ao gerar o token
 
 ---
 
