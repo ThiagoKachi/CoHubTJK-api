@@ -7,16 +7,17 @@
 ### Cadastro de Usuário e Administrador
 > ## Sucesso
 
-- [] Recebe uma requisição `POST` em `/api/signup`
-- [] Valida os campos `nome`, `email`, `senha` e `papel` (usuário ou administrador)
-- [] Salva o novo usuário no banco e retorna `201` com dados básicos do usuário (exceto senha)
+- [x] Recebe uma requisição `POST` em `/api/signup`
+- [x] Valida os campos `nome`, `email`, `senha` e `papel` (usuário ou administrador)
+- [x] Salva o novo usuário no banco e retorna `201` com dados básicos do usuário (exceto senha)
+- [x] Criptografa a senha antes de salvar no banco de dados
 
 > ## Exceções
 
-- [] `400` se algum campo obrigatório estiver ausente
-- [] `400` se o `email` for inválido
-- [] `409` se o `email` já estiver cadastrado
-- [] `500` em caso de erro ao salvar no banco de dados
+- [x] `400` se algum campo obrigatório estiver ausente
+- [x] `400` se o `email` for inválido
+- [x] `409` se o `email` já estiver cadastrado
+- [x] `500` em caso de erro ao salvar no banco de dados
 
 ### Login de Usuário e Administrador
 > ## Sucesso

@@ -7,9 +7,9 @@ import { Controller } from '@presentation/protocols/controller';
 
 export const makeSignUpController = (): Controller => {
   const accountRepository = new AccountPrismaRepository();
-
   const hasher = new BcryptAdapter();
   const addAccount = new DbAddAccount(accountRepository, hasher, accountRepository);
+
   const validator = new SignupValidatorAdapter();
 
   return new SignupController(
