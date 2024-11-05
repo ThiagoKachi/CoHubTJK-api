@@ -40,17 +40,17 @@
 ### Criar Espaço
 > ## Sucesso
 
-- [] Recebe uma requisição `POST` em `/api/spaces`
-- [] Verifica que o usuário é administrador
-- [] Valida dados do espaço: `nome`, `descrição`, `capacidade`, `categoria`, e `tags`
-- [] Salva o espaço no banco e faz upload de imagens para o S3
-- [] Retorna `201` com os dados do novo espaço
+- [x] Recebe uma requisição `POST` em `/space`
+- [x] Verifica que o usuário é administrador
+- [x] Valida dados do espaço: `nome`, `descrição`, `capacidade`, `categoria`, `tags` e etc...
+- [x] Salva o espaço no banco
+- [x] Retorna `201` com os dados do novo espaço
 
 > ## Exceções
 
-- [] `403` se o usuário não for administrador
-- [] `400` se dados obrigatórios estiverem ausentes
-- [] `500` em caso de erro ao salvar no banco ou fazer upload de imagens
+- [x] `403` se o usuário não for administrador
+- [x] `400` se dados obrigatórios estiverem ausentes
+- [x] `500` em caso de erro ao salvar no banco ou fazer upload de imagens
 
 ---
 

@@ -42,6 +42,7 @@ model Space {
   price       Decimal
   images      String[]
   resources   String[]
+  available   Boolean  @default(true)
 
   // Address
   street       String
