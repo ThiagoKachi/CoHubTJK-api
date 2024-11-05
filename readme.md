@@ -59,9 +59,10 @@
 ### Busca de Espaços
 > ## Sucesso
 
-- [] Recebe uma requisição `GET` em `/api/spaces`
+- [x] Recebe uma requisição `GET` em `/api/spaces`
 - [] Aplica filtros: `data`, `capacidade`, `recursos`, `categoria`, e `tags`
 - [] Retorna `200` com a lista de espaços disponíveis
+- [] Config a duração do token (1 dia)
 
 > ## Exceções
 
