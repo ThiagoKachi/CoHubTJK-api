@@ -11,12 +11,7 @@ export class DbAddSpace implements AddSpace {
   ) {}
 
   async add(spaceData: AddSpaceModel): Promise<SpaceModel | null> {
-    const isAdmin = await this.loadAccountByIdRepository.loadById(spaceData.accountId);
+    return await this.addSpaceRepository.add(spaceData);
 
-    if (isAdmin?.role === 'ADMIN') {
-      return await this.addSpaceRepository.add(spaceData);
-    }
-
-    return null;
   }
 }

@@ -2,6 +2,18 @@
 
 - **Descrição**: Uma plataforma onde empresas e trabalhadores remotos podem agendar salas de reunião, mesas, e espaços compartilhados, integrando análise de ocupação e monitoramento de uso.
 
+## 0. Middleware de autorização e Autenticação
+> ## Sucesso
+
+- [] Config a duração do token (1 dia)
+- [] Middleware para validar a "role"
+- [] Colocar token nos headers
+- [] Validar requisição a partir da role do user
+
+> ## Exceções
+
+- [] `403` se não for um usuário autorizado
+
 ## 1. Autenticação e Autorização
 
 ### Cadastro de Usuário e Administrador
@@ -60,18 +72,17 @@
 > ## Sucesso
 
 - [x] Recebe uma requisição `GET` em `/api/spaces`
-- [] Aplica filtros: `data`, `capacidade`, `recursos`, `categoria`, e `tags`
-- [] Retorna `200` com a lista de espaços disponíveis
-- [] Config a duração do token (1 dia)
+- [x] Aplica filtros: `data`, `capacidade`, `recursos`, `categoria`, e `tags`
+- [x] Retorna `200` com a lista de espaços disponíveis
 
 > ## Exceções
 
 - [] `400` se algum filtro estiver em formato inválido
-- [] `500` em caso de erro na busca de espaços no banco de dados
+- [x] `500` em caso de erro na busca de espaços no banco de dados
 
 ---
 
-## 4. Sistema de Reserva e Pagamento
+## 4. Sistema de Reserva
 
 ### Criar Reserva
 > ## Sucesso
@@ -79,7 +90,7 @@
 - [] Recebe uma requisição `POST` em `/api/reserve`
 - [] Valida dados: `userID`, `spaceID`, `data`, `hora`, e `pagamento`
 - [] Verifica se o espaço está disponível e cria a reserva
-- [] Confirma pagamento e retorna `201` com a reserva e o recibo
+- [] Precisa estar autenticado como "MEMBER"
 
 > ## Exceções
 
@@ -95,6 +106,8 @@
 - [] Valida `reservationID` e verifica a possibilidade de cancelamento (ex.: 24h antes)
 - [] Cancela a reserva e inicia o processo de reembolso
 - [] Retorna `200` com confirmação de cancelamento
+- [] Precisa estar autenticado como "MEMBER"
+- [] Precisa ser o dono da reserva para fazer a ação
 
 > ## Exceções
 
@@ -104,40 +117,7 @@
 
 ---
 
-## 5. Notificações e Alertas
-
-### Envio de Notificações de Lembrete
-> ## Sucesso
-
-- [] Cron dispara a rota `/api/notifications/reminder`
-- [] Busca reservas próximas e envia lembretes por email
-- [] Retorna `200` com o relatório de lembretes enviados
-
-> ## Exceções
-
-- [] `500` em caso de erro ao buscar reservas ou ao enviar notificações
-
----
-
-## 6. Monitoramento e Controle de Ocupação
-
-### Controle de Entrada via QR Code
-> ## Sucesso
-
-- [] Recebe uma requisição `POST` em `/api/entry`
-- [] Valida dados `qrCode` e `reservationID`
-- [] Autoriza a entrada e registra o acesso
-- [] Retorna `200` com confirmação de entrada
-
-> ## Exceções
-
-- [] `401` se o `qrCode` não corresponder à reserva
-- [] `403` se o usuário não estiver no horário de reserva
-- [] `500` em caso de erro ao registrar o acesso
-
----
-
-## 7. Feedback e Avaliação de Espaços
+## 5. Feedback e Avaliação de Espaços
 
 ### Avaliar Espaço
 > ## Sucesso
@@ -146,26 +126,11 @@
 - [] Valida dados: `reservationID`, `nota` e `feedback`
 - [] Verifica se a reserva foi concluída e permite avaliação
 - [] Retorna `201` com confirmação de avaliação salva
+- [] Precisa estar autenticado como "MEMBER"
+- [] Precisa ser o dono da reserva para fazer a ação
 
 > ## Exceções
 
 - [] `400` se dados obrigatórios estiverem ausentes
 - [] `403` se a reserva ainda não estiver concluída ou já tiver avaliação
 - [] `500` em caso de erro ao salvar avaliação
-
----
-
-## 8. Integração com Ferramentas de Produtividade
-
-### Sincronizar com Calendário
-> ## Sucesso
-
-- [] Recebe uma requisição `POST` em `/api/calendar/sync`
-- [] Verifica se o usuário autenticado deu permissão
-- [] Sincroniza reserva com o calendário do usuário
-- [] Retorna `200` com confirmação de sincronização
-
-> ## Exceções
-
-- [] `403` se o usuário não tiver permissão para sincronizar
-- [] `500` em caso de erro ao integrar com a API do calendário
