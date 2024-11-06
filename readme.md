@@ -5,14 +5,14 @@
 ## 0. Middleware de autorização e Autenticação
 > ## Sucesso
 
-- [] Config a duração do token (1 dia)
-- [] Middleware para validar a "role"
-- [] Colocar token nos headers
-- [] Validar requisição a partir da role do user
+- [x] Config a duração do token (1 dia)
+- [x] Middleware para validar a "role"
+- [x] Colocar token nos headers
+- [x] Validar requisição a partir da role do user
 
 > ## Exceções
 
-- [] `403` se não for um usuário autorizado
+- [x] `403` se não for um usuário autorizado
 
 ## 1. Autenticação e Autorização
 
@@ -77,7 +77,7 @@
 
 > ## Exceções
 
-- [] `400` se algum filtro estiver em formato inválido
+- [x] `400` se algum filtro estiver em formato inválido
 - [x] `500` em caso de erro na busca de espaços no banco de dados
 
 ---

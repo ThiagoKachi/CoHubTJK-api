@@ -6,7 +6,7 @@ export class JWTAdapter implements Decrypter, Encrypter {
   constructor(private readonly secret: string) {}
 
   async encrypt(value: string): Promise<string> {
-    const accessToken = await jwt.sign(value, this.secret);
+    const accessToken = await jwt.sign(JSON.parse(value), this.secret, { expiresIn: '1d' });
     return accessToken;
   }
 
