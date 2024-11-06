@@ -27,24 +27,23 @@ model Account {
   role       Role     @default(MEMBER)
   created_at DateTime @default(now())
 
-  spaces Space[]
+  spaces      Space[]
+  Reservation Reservation[]
 
   @@map("accounts")
 }
 
 model Space {
-  id          String   @id @default(uuid()) @db.Uuid
-  name        String
-  description String
-  capacity    Int
-  category    String
-  tags        String[]
-  price       Decimal
-  images      String[]
-  resources   String[]
-  available   Boolean  @default(true)
-
-  // Address
+  id           String   @id @default(uuid()) @db.Uuid
+  name         String
+  description  String
+  capacity     Int
+  category     String
+  tags         String[]
+  price        Decimal
+  images       String[]
+  resources    String[]
+  available    Boolean  @default(true)
   street       String
   number       Int
   complement   String?
@@ -57,7 +56,22 @@ model Space {
   updated_at DateTime @updatedAt
   accountId  String   @db.Uuid
 
-  adm Account @relation(fields: [accountId], references: [id])
+  adm         Account       @relation(fields: [accountId], references: [id])
+  Reservation Reservation[]
 
   @@map("spaces")
+}
+
+model Reservation {
+  id         String    @id @default(uuid()) @db.Uuid
+  date       DateTime
+  created_at DateTime  @default(now())
+  deleted_at DateTime?
+  accountId  String    @db.Uuid
+  spaceId    String    @db.Uuid
+
+  account Account @relation(fields: [accountId], references: [id])
+  space   Space   @relation(fields: [spaceId], references: [id])
+
+  @@map("reservarions")
 }

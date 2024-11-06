@@ -88,7 +88,7 @@
 > ## Sucesso
 
 - [] Recebe uma requisição `POST` em `/api/reserve`
-- [] Valida dados: `userID`, `spaceID`, `data`, `hora`, e `pagamento`
+- [] Valida dados: `userID`, `spaceID`, `data` e `hora`
 - [] Verifica se o espaço está disponível e cria a reserva
 - [] Precisa estar autenticado como "MEMBER"
 
@@ -96,7 +96,6 @@
 
 - [] `400` se algum dado estiver faltando ou incorreto
 - [] `403` se o espaço já estiver reservado
-- [] `402` se o pagamento não for concluído
 - [] `500` em caso de erro ao salvar no banco de dados ou integrar com o gateway de pagamento
 
 ### Cancelamento de Reserva
