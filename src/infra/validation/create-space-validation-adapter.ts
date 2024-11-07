@@ -1,5 +1,5 @@
-import { AddSpaceModel } from '@domain/models/add-space';
-import { ValidationError } from '@domain/models/validation-error';
+import { AddSpaceModel } from '@domain/models/space/add-space';
+import { ValidationError } from '@domain/models/validation-error/validation-error';
 import { AddSpaceValidator } from '@validation/protocols/add-space-validator';
 import { z } from 'zod';
 
@@ -13,15 +13,13 @@ export class AddSpaceValidatorAdapter implements AddSpaceValidator {
     price: z.number().min(1, 'Price is required'),
     images: z.array(z.string()),
     resources: z.array(z.string()),
-    address: z.object({
-      street: z.string().min(1, 'Street is required'),
-      number: z.number().min(1, 'Number is required'),
-      city: z.string().min(1, 'City is required'),
-      state: z.string().min(1, 'State is required'),
-      postal_code: z.string().min(1, 'Postal code is required'),
-      neighborhood: z.string().min(1, 'Neighborhood is required'),
-      complement: z.string().optional()
-    }),
+    street: z.string().min(1, 'Street is required'),
+    number: z.number().min(1, 'Number is required'),
+    city: z.string().min(1, 'City is required'),
+    state: z.string().min(1, 'State is required'),
+    postal_code: z.string().min(1, 'Postal code is required'),
+    neighborhood: z.string().min(1, 'Neighborhood is required'),
+    complement: z.string().optional(),
     accountId: z.string().uuid(),
     available: z.boolean()
   });

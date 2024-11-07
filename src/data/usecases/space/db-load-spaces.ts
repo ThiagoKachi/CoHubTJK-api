@@ -1,5 +1,5 @@
 import { LoadSpacesRepository } from '@data/protocols/db/space/load-spaces-repository';
-import { SpaceModel } from '@domain/models/space';
+import { SpaceModel } from '@domain/models/space/space';
 import { ListSpacesFilters, LoadSpaces } from '@domain/usecases/space/load-spaces';
 
 export class DbLoadSpaces implements LoadSpaces {

@@ -1,13 +1,3 @@
-export interface Address {
-  street: string;
-  number: number;
-  complement?: string;
-  neighborhood: string;
-  city: string;
-  state: string;
-  postal_code: string;
-}
-
 export interface SpaceModel {
   id: string;
   name: string;
@@ -18,7 +8,13 @@ export interface SpaceModel {
   price: number;
   images: string[];
   resources: string[];
-  address: Address;
+  street: string;
+  number: number;
+  complement?: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+  postal_code: string;
   created_at: string;
   updated_at: string;
   accountId: string;

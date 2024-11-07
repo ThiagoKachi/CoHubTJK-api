@@ -1,4 +1,4 @@
-import { SpaceModel } from '@domain/models/space';
+import { SpaceModel } from '@domain/models/space/space';
 
 export interface ListSpacesFilters {
   name?: string;

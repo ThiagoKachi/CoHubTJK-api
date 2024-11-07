@@ -1,5 +1,5 @@
-import { AuthenticationModel } from '@domain/models/authentication';
-import { ValidationError } from '@domain/models/validation-error';
+import { AuthenticationModel } from '@domain/models/account/authentication';
+import { ValidationError } from '@domain/models/validation-error/validation-error';
 import { SigninValidator } from '@validation/protocols/signin-validator';
 import { z } from 'zod';
 

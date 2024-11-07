@@ -1,4 +1,4 @@
-import { SpaceModel } from '@domain/models/space';
+import { SpaceModel } from '@domain/models/space/space';
 import { ListSpacesFilters } from '@domain/usecases/space/load-spaces';
 
 export interface LoadSpacesRepository {

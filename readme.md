@@ -87,16 +87,20 @@
 ### Criar Reserva
 > ## Sucesso
 
-- [] Recebe uma requisição `POST` em `/api/reserve`
-- [] Valida dados: `userID`, `spaceID`, `data` e `hora`
-- [] Verifica se o espaço está disponível e cria a reserva
+- [x] Recebe uma requisição `POST` em `/api/reservation`
+- [x] Valida dados: `spaceId` e `date`
+- [x] Verifica se o espaço está disponível e cria a reserva
+- [x] Se não tiver nenhum token, não permite fazer reserva
+
+- [] Extrair o accountId dos headers
 - [] Precisa estar autenticado como "MEMBER"
+- [] Melhorar mensagem de erros vindos do Zod
 
 > ## Exceções
 
-- [] `400` se algum dado estiver faltando ou incorreto
-- [] `403` se o espaço já estiver reservado
-- [] `500` em caso de erro ao salvar no banco de dados ou integrar com o gateway de pagamento
+- [x] `400` se algum dado estiver faltando ou incorreto
+- [x] `403` se o espaço já estiver reservado
+- [x] `500` em caso de erro ao salvar no banco de dados ou integrar com o gateway de pagamento
 
 ### Cancelamento de Reserva
 > ## Sucesso
