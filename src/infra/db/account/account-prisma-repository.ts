@@ -34,7 +34,10 @@ export class AccountPrismaRepository implements AddAccountRepository, LoadAccoun
     const account = await prismaClient.account.findFirst({
       where: {
         token,
-        OR: role ? [{ role: Role[role] }, { role: 'ADMIN' as Role }] : [{ role: 'ADMIN' as Role }]
+        OR: [
+          { role: role },
+          { role: 'ADMIN' }
+        ]
       }
     });
 

@@ -91,10 +91,8 @@
 - [x] Valida dados: `spaceId` e `date`
 - [x] Verifica se o espaço está disponível e cria a reserva
 - [x] Se não tiver nenhum token, não permite fazer reserva
-
-- [] Extrair o accountId dos headers
-- [] Precisa estar autenticado como "MEMBER"
-- [] Melhorar mensagem de erros vindos do Zod
+- [x] Extrair o accountId dos headers
+- [x] Precisa estar autenticado como "MEMBER"
 
 > ## Exceções
 

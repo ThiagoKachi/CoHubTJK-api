@@ -6,7 +6,6 @@ import { z } from 'zod';
 export class AddReservationValidatorAdapter implements AddReservationValidator {
   private signupSchema = z.object({
     date: z.string(),
-    accountId: z.string().uuid(),
     spaceId: z.string().uuid(),
   });
 
