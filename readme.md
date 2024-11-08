@@ -103,18 +103,17 @@
 ### Cancelamento de Reserva
 > ## Sucesso
 
-- [] Recebe uma requisição `DELETE` em `/api/cancel/:reservationID`
-- [] Valida `reservationID` e verifica a possibilidade de cancelamento (ex.: 24h antes)
-- [] Cancela a reserva e inicia o processo de reembolso
-- [] Retorna `200` com confirmação de cancelamento
-- [] Precisa estar autenticado como "MEMBER"
-- [] Precisa ser o dono da reserva para fazer a ação
+- [x] Recebe uma requisição `DELETE` em `/api/cancel/:reservationID`
+- [x] Valida `reservationID` e verifica a possibilidade de cancelamento (ex.: 24h antes)
+- [x] Precisa estar autenticado e ser o dono da reserva para fazer a ação
+- [x] Cancela a reserva e altera o atributo canceled_at
+- [x] Retorna `200` com confirmação de cancelamento
 
 > ## Exceções
 
-- [] `400` se o `reservationID` for inválido
-- [] `403` se a reserva estiver fora do prazo de cancelamento
-- [] `500` em caso de erro no banco de dados ou ao processar reembolso
+- [x] `400` se o `reservationID` for inválido
+- [x] `403` se a reserva estiver fora do prazo de cancelamento
+- [x] `500` em caso de erro no banco de dados ou ao processar reembolso
 
 ---
 

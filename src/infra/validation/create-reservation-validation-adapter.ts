@@ -4,13 +4,13 @@ import { AddReservationValidator } from '@validation/protocols/add-reservation-v
 import { z } from 'zod';
 
 export class AddReservationValidatorAdapter implements AddReservationValidator {
-  private signupSchema = z.object({
+  private createReservationSchema = z.object({
     date: z.string(),
     spaceId: z.string().uuid(),
   });
 
   validate (data: AddReservationModel): void | ValidationError {
-    const result = this.signupSchema.safeParse(data);
+    const result = this.createReservationSchema.safeParse(data);
 
     if (!result.success) {
       return {

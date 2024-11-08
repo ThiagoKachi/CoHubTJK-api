@@ -4,7 +4,7 @@ import { AddSpaceValidator } from '@validation/protocols/add-space-validator';
 import { z } from 'zod';
 
 export class AddSpaceValidatorAdapter implements AddSpaceValidator {
-  private signupSchema = z.object({
+  private createSpaceSchema = z.object({
     name: z.string().min(1, 'Name is required'),
     description: z.string().min(1, 'Description is required'),
     capacity: z.number().min(1, 'Capacity is required'),
@@ -25,7 +25,7 @@ export class AddSpaceValidatorAdapter implements AddSpaceValidator {
   });
 
   validate (data: AddSpaceModel): void | ValidationError {
-    const result = this.signupSchema.safeParse(data);
+    const result = this.createSpaceSchema.safeParse(data);
 
     if (!result.success) {
       return {

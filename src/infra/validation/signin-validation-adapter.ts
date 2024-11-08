@@ -4,13 +4,13 @@ import { SigninValidator } from '@validation/protocols/signin-validator';
 import { z } from 'zod';
 
 export class SigninValidatorAdapter implements SigninValidator {
-  private signupSchema = z.object({
+  private signinSchema = z.object({
     email: z.string().email({ message: 'Invalid email' }).min(1, 'Email is required'),
     password: z.string().min(6, 'Password is required')
   });
 
   validate (data: AuthenticationModel): void | ValidationError {
-    const result = this.signupSchema.safeParse(data);
+    const result = this.signinSchema.safeParse(data);
 
     if (!result.success) {
       return {
