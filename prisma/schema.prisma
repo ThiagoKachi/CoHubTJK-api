@@ -29,6 +29,7 @@ model Account {
 
   spaces      Space[]
   Reservation Reservation[]
+  feedback    Feedback[]
 
   @@map("accounts")
 }
@@ -58,20 +59,40 @@ model Space {
 
   adm         Account       @relation(fields: [accountId], references: [id])
   Reservation Reservation[]
+  feedback    Feedback[]
 
   @@map("spaces")
 }
 
 model Reservation {
-  id         String    @id @default(uuid()) @db.Uuid
-  date       DateTime
-  created_at DateTime  @default(now())
-  deleted_at DateTime?
-  accountId  String    @db.Uuid
-  spaceId    String    @db.Uuid
+  id          String    @id @default(uuid()) @db.Uuid
+  date        DateTime
+  created_at  DateTime  @default(now())
+  deleted_at  DateTime?
+  finished_at DateTime?
+  accountId   String    @db.Uuid
+  spaceId     String    @db.Uuid
 
-  account Account @relation(fields: [accountId], references: [id])
-  space   Space   @relation(fields: [spaceId], references: [id])
+  account  Account    @relation(fields: [accountId], references: [id])
+  space    Space      @relation(fields: [spaceId], references: [id])
+  feedback Feedback[]
 
   @@map("reservarions")
+}
+
+model Feedback {
+  id         String   @id @default(uuid()) @db.Uuid
+  rating     Int
+  feedback   String?
+  created_at DateTime @default(now())
+
+  reservationId String @db.Uuid
+  accountId     String @db.Uuid
+  spaceId       String @db.Uuid
+
+  reservation Reservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
+  account     Account     @relation(fields: [accountId], references: [id])
+  space       Space       @relation(fields: [spaceId], references: [id])
+
+  @@map("feedbacks")
 }

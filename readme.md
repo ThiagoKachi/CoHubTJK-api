@@ -122,15 +122,17 @@
 ### Avaliar Espaço
 > ## Sucesso
 
-- [] Recebe uma requisição `POST` em `/api/review`
-- [] Valida dados: `reservationID`, `nota` e `feedback`
-- [] Verifica se a reserva foi concluída e permite avaliação
-- [] Retorna `201` com confirmação de avaliação salva
-- [] Precisa estar autenticado como "MEMBER"
-- [] Precisa ser o dono da reserva para fazer a ação
+- [x] Recebe uma requisição `POST` em `/api/feedback`
+- [x] Valida dados: `reservationId`, `spaceId`, `rating` e `feedback`
+- [x] Verifica se a reserva foi concluída e permite avaliação
+- [x] Retorna `201` com confirmação de avaliação salva
+- [x] Precisa estar autenticado como "MEMBER"
+- [x] Precisa ser o dono da reserva para fazer a ação
 
 > ## Exceções
 
-- [] `400` se dados obrigatórios estiverem ausentes
-- [] `403` se a reserva ainda não estiver concluída ou já tiver avaliação
-- [] `500` em caso de erro ao salvar avaliação
+- [x] `400` se dados obrigatórios estiverem ausentes
+- [x] `403` se a reserva ainda não estiver concluída ou já tiver avaliação
+- [x] `500` em caso de erro ao salvar avaliação
+
+ <!-- TODO: Melhorar mensagens de erro -->
