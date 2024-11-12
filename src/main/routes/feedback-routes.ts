@@ -6,6 +6,6 @@ import { FastifyInstance } from 'fastify';
 
 export async function feedbackRoutes(fastify: FastifyInstance) {
   fastify.addHook('onRequest', auth);
-  fastify.post('/feedback', adaptRoute(makeFeedbackController()));
-  fastify.get('/feedback/:reservationId', adaptRoute(makeLoadFeedbacksController()));
+  fastify.post('/feedbacks', adaptRoute(makeFeedbackController()));
+  fastify.get('/feedbacks/:reservationId', adaptRoute(makeLoadFeedbacksController()));
 }

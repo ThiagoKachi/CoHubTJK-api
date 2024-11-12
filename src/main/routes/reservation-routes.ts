@@ -8,8 +8,8 @@ import { FastifyInstance } from 'fastify';
 
 export async function reservationRoutes(fastify: FastifyInstance) {
   fastify.addHook('onRequest', auth);
-  fastify.post('/reservation', adaptRoute(makeReservationController()));
-  fastify.delete('/reservation/:id', adaptRoute(makeCancelReservationController()));
-  fastify.post('/reservation/finish', adaptRoute(makeFinishReservationController()));
-  fastify.get('/reservation', adaptRoute(makeLoadReservationsController()));
+  fastify.post('/reservations', adaptRoute(makeReservationController()));
+  fastify.delete('/reservations/:id', adaptRoute(makeCancelReservationController()));
+  fastify.post('/reservations/finish', adaptRoute(makeFinishReservationController()));
+  fastify.get('/reservations', adaptRoute(makeLoadReservationsController()));
 }

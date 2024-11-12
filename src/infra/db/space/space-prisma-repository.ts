@@ -1,4 +1,5 @@
 import { AddSpaceRepository } from '@data/protocols/db/space/add-space-repository';
+import { DeleteSpaceRepository } from '@data/protocols/db/space/delete-space-repository';
 import { LoadSpaceByIdRepository } from '@data/protocols/db/space/load-space-by-id';
 import { LoadSpacesRepository } from '@data/protocols/db/space/load-spaces-repository';
 import { UpdateSpaceRepository } from '@data/protocols/db/space/update-space-repository';
@@ -22,8 +23,13 @@ implements
     AddSpaceRepository,
     LoadSpacesRepository,
     UpdateSpaceRepository,
-    LoadSpaceByIdRepository
+    LoadSpaceByIdRepository,
+    DeleteSpaceRepository
 {
+  async delete(spaceId: string): Promise<void> {
+    await prismaClient.space.delete({ where: { id: spaceId } });
+  }
+
   async loadById(id: string): Promise<SpaceModel | null> {
     const space = await prismaClient.space.findFirst({ where: { id } });
 
