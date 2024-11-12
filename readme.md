@@ -135,4 +135,14 @@
 - [x] `403` se a reserva ainda não estiver concluída ou já tiver avaliação
 - [x] `500` em caso de erro ao salvar avaliação
 
- <!-- TODO: Melhorar mensagens de erro -->
+ <!-- TODO:
+  -  Listar feedbacks por reserva ✅
+  -  Listar reservas por usuário
+  -  Editar espaço (ADMIN)
+  -  Deletar espaço (ADMIN)
+  -  Melhorar mensagens de erro
+  -------------
+  - Adicionar tabela de horários em cada espaço
+  - Fazer regras dos horários na reserva e espaço
+  - Mais usuário no mesmo espaço (Convites, feedbacks e etc...)
+  -->
