@@ -2,7 +2,7 @@ import { AddSpaceRepository } from '@data/protocols/db/space/add-space-repositor
 import { DeleteSpaceRepository } from '@data/protocols/db/space/delete-space-repository';
 import { LoadSpaceByIdRepository } from '@data/protocols/db/space/load-space-by-id';
 import { LoadSpacesRepository } from '@data/protocols/db/space/load-spaces-repository';
-import { UpdateSpaceRepository } from '@data/protocols/db/space/update-space-repository';
+import { UpdateSpaceAvailabilityRepository } from '@data/protocols/db/space/update-space-availability-repository';
 import { SpaceModel } from '@domain/models/space/space';
 import { ListSpacesFilters } from '@domain/usecases/space/load-spaces';
 import { prismaClient } from '../prismaClient';
@@ -22,7 +22,7 @@ export class SpacePrismaRepository
 implements
     AddSpaceRepository,
     LoadSpacesRepository,
-    UpdateSpaceRepository,
+    UpdateSpaceAvailabilityRepository,
     LoadSpaceByIdRepository,
     DeleteSpaceRepository
 {
@@ -44,7 +44,7 @@ implements
     };
   }
 
-  async updateSpace(id: string, available: boolean): Promise<void> {
+  async updateSpaceAvailability(id: string, available: boolean): Promise<void> {
     await prismaClient.space.update({ where: { id }, data: { available } });
   }
 

@@ -1,6 +1,6 @@
 import { FinishReservationRepository } from '@data/protocols/db/reservation/finish-reservation-repository';
 import { LoadReservationByIdRepository } from '@data/protocols/db/reservation/load-reservation-by-id';
-import { UpdateSpaceRepository } from '@data/protocols/db/space/update-space-repository';
+import { UpdateSpaceAvailabilityRepository } from '@data/protocols/db/space/update-space-availability-repository';
 import { FinishReservationModel } from '@domain/models/reservation/finish-reservation';
 import { FinishReservation } from '@domain/usecases/reservation/finish-reservation';
 
@@ -8,7 +8,7 @@ export class DbFinishReservation implements FinishReservation {
   constructor(
     private readonly loadReservationByIdRepository: LoadReservationByIdRepository,
     private readonly finishReservationRepository: FinishReservationRepository,
-    private readonly updateSpaceRepository: UpdateSpaceRepository
+    private readonly updateSpaceAvailabilityRepository: UpdateSpaceAvailabilityRepository
   ) {}
 
   async finish(finishReservationData: FinishReservationModel): Promise<void | null> {
@@ -18,7 +18,7 @@ export class DbFinishReservation implements FinishReservation {
       if (finishReservationData.accountId === reservation?.accountId) {
         await this.finishReservationRepository.finish(finishReservationData);
 
-        await this.updateSpaceRepository.updateSpace(reservation.spaceId, true);
+        await this.updateSpaceAvailabilityRepository.updateSpaceAvailability(reservation.spaceId, true);
 
         return;
       }

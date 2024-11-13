@@ -1,7 +1,7 @@
 import { CancelReservationRepository } from '@data/protocols/db/reservation/cancel-reservation-repository';
 import { FinishReservationRepository } from '@data/protocols/db/reservation/finish-reservation-repository';
 import { LoadReservationByIdRepository } from '@data/protocols/db/reservation/load-reservation-by-id';
-import { UpdateSpaceRepository } from '@data/protocols/db/space/update-space-repository';
+import { UpdateSpaceAvailabilityRepository } from '@data/protocols/db/space/update-space-availability-repository';
 import { CancelReservationModel } from '@domain/models/reservation/cancel-reservation';
 import { CancelReservation } from '@domain/usecases/reservation/cancel-reservation';
 
@@ -9,7 +9,7 @@ export class DbCancelReservation implements CancelReservation {
   constructor(
     private readonly loadReservationByIdRepository: LoadReservationByIdRepository,
     private readonly cancelReservationRepository: CancelReservationRepository,
-    private readonly updateSpaceRepository: UpdateSpaceRepository,
+    private readonly updateSpaceAvailabilityRepository: UpdateSpaceAvailabilityRepository,
     private readonly finishReservationRepository: FinishReservationRepository,
   ) {}
 
@@ -20,7 +20,7 @@ export class DbCancelReservation implements CancelReservation {
       if (cancelReservationData.accountId === reservation?.accountId) {
         await this.cancelReservationRepository.cancel(cancelReservationData);
 
-        await this.updateSpaceRepository.updateSpace(cancelReservationData.spaceId, true);
+        await this.updateSpaceAvailabilityRepository.updateSpaceAvailability(cancelReservationData.spaceId, true);
 
         await this.finishReservationRepository.finish({
           accountId: cancelReservationData.accountId,

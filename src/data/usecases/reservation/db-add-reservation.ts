@@ -1,7 +1,7 @@
 import { LoadAccountByIdRepository } from '@data/protocols/db/account/load-account-by-id';
 import { AddReservationRepository } from '@data/protocols/db/reservation/add-reservation-repository';
 import { LoadSpaceByIdRepository } from '@data/protocols/db/space/load-space-by-id';
-import { UpdateSpaceRepository } from '@data/protocols/db/space/update-space-repository';
+import { UpdateSpaceAvailabilityRepository } from '@data/protocols/db/space/update-space-availability-repository';
 import { AddReservationModel } from '@domain/models/reservation/add-reservation';
 import { ReservationModel } from '@domain/models/reservation/reservation';
 import { AddReservation } from '@domain/usecases/reservation/add-reservation';
@@ -11,7 +11,7 @@ export class DbAddReservation implements AddReservation {
     private readonly loadAccountByIdRepository: LoadAccountByIdRepository,
     private readonly loadSpaceByIdRepository: LoadSpaceByIdRepository,
     private readonly addReservationRepository: AddReservationRepository,
-    private readonly updateSpaceRepository: UpdateSpaceRepository
+    private readonly updateSpaceAvailabilityRepository: UpdateSpaceAvailabilityRepository
   ) {}
 
   async add(reservation: AddReservationModel): Promise<ReservationModel | null> {
@@ -26,7 +26,7 @@ export class DbAddReservation implements AddReservation {
         if (isAvailable) {
           const reservationRes = await this.addReservationRepository.add(reservation);
 
-          await this.updateSpaceRepository.updateSpace(reservation.spaceId, false);
+          await this.updateSpaceAvailabilityRepository.updateSpaceAvailability(reservation.spaceId, false);
 
           return reservationRes;
         }
