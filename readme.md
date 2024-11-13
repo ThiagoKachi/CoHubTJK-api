@@ -140,9 +140,8 @@
   -  Listar reservas por usuário ✅
   -  Deletar espaço (ADMIN) ✅
   -  Editar espaço (ADMIN) ✅
-  -  Melhorar mensagens de erro
   -------------
+  - Mais usuários no mesmo espaço (Convites, feedbacks e etc...)
   - Adicionar tabela de horários em cada espaço
   - Fazer regras dos horários na reserva e espaço
-  - Mais usuário no mesmo espaço (Convites, feedbacks e etc...)
   -->

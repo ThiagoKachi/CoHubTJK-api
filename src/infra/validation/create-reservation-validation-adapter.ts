@@ -7,6 +7,7 @@ export class AddReservationValidatorAdapter implements AddReservationValidator {
   private createReservationSchema = z.object({
     date: z.string(),
     spaceId: z.string().uuid(),
+    quantity: z.number().min(1, 'Quantity is required')
   });
 
   validate (data: AddReservationModel): void | ValidationError {

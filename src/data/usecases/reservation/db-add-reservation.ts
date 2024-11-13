@@ -24,11 +24,13 @@ export class DbAddReservation implements AddReservation {
         const isAvailable = space.available;
 
         if (isAvailable) {
-          const reservationRes = await this.addReservationRepository.add(reservation);
+          if (reservation.quantity <= space.capacity) {
+            const reservationRes = await this.addReservationRepository.add(reservation);
 
-          await this.updateSpaceAvailabilityRepository.updateSpaceAvailability(reservation.spaceId, false);
+            await this.updateSpaceAvailabilityRepository.updateSpaceAvailability(reservation.spaceId, false);
 
-          return reservationRes;
+            return reservationRes;
+          }
         }
       }
     }

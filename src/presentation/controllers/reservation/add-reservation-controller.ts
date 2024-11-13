@@ -21,7 +21,7 @@ export class AddReservationController implements Controller {
     const reservation = await this.addReservation.add({ ...body, accountId: httpRequest.accountId });
 
     if (!reservation) {
-      throw new AppError('The space is not available', 403);
+      throw new AppError('The reservation is not available', 400);
     }
 
     return {
