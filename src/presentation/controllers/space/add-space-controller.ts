@@ -18,7 +18,7 @@ export class AddSpaceController implements Controller {
 
     const { body } = httpRequest;
 
-    const space = await this.addSpace.add(body);
+    const space = await this.addSpace.add({ ...body, accountId: httpRequest.accountId });
 
     if (!space) {
       throw new AppError('Unable to create space', 403);

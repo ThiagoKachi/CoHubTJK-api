@@ -86,6 +86,7 @@ implements
   }
 
   async add(spaceData: SpaceModel): Promise<SpaceModel> {
+    console.log(spaceData);
     const space = await prismaClient.space.create({ data: spaceData });
 
     return {

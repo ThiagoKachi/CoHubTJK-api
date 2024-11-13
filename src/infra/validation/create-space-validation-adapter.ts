@@ -20,7 +20,6 @@ export class AddSpaceValidatorAdapter implements AddSpaceValidator {
     postal_code: z.string().min(1, 'Postal code is required'),
     neighborhood: z.string().min(1, 'Neighborhood is required'),
     complement: z.string().optional(),
-    accountId: z.string().uuid(),
     available: z.boolean()
   });
 

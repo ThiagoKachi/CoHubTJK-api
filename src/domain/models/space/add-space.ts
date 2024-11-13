@@ -14,5 +14,4 @@ export interface AddSpaceModel {
   city: string;
   state: string;
   postal_code: string;
-  accountId: string;
 }
