@@ -136,12 +136,85 @@
 - [x] `500` em caso de erro ao salvar avaliação
 
  <!-- TODO:
-  -  Listar feedbacks por reserva ✅
-  -  Listar reservas por usuário ✅
-  -  Deletar espaço (ADMIN) ✅
-  -  Editar espaço (ADMIN) ✅
-  -------------
   - Mais usuários no mesmo espaço (Convites, feedbacks e etc...)
   - Adicionar tabela de horários em cada espaço
   - Fazer regras dos horários na reserva e espaço
   -->
+
+## Funcionalidade: Adicionar Múltiplos Usuários na Mesma Reserva
+
+Para permitir que mais usuários sejam adicionados à mesma reserva, implementamos funcionalidades de convite e gestão de participantes. Isso possibilita que o usuário criador da reserva adicione colegas ou clientes e colete feedbacks sobre o espaço após o uso.
+
+## 1. Convite de Usuários para uma Reserva
+
+### Adicionar Participantes
+#### Sucesso
+
+- [] Recebe uma requisição `POST` em `/api/reserve/:reservationID/invite`
+- [] Verifica se o usuário autenticado é o criador da reserva
+- [] Valida o campo `email` dos convidados
+- [] Envia convites por email para cada usuário convidado
+- [] Adiciona os usuários convidados à reserva no banco de dados
+- [] Retorna `200` com confirmação de que os convites foram enviados
+
+#### Exceções
+
+- [] `400` se o `reservationID` ou `email` estiver em formato inválido
+- [] `403` se o usuário autenticado não for o criador da reserva
+- [] `409` se o usuário convidado já estiver na reserva
+- [] `500` em caso de erro ao enviar convites ou salvar dados no banco
+
+---
+
+## 2. Visualização de Participantes da Reserva
+
+### Listar Participantes
+#### Sucesso
+
+- [] Recebe uma requisição `GET` em `/api/reserve/:reservationID/participants`
+- [] Verifica se o usuário autenticado está na lista de participantes da reserva ou é o criador
+- [] Retorna `200` com a lista de participantes (nome e email)
+
+#### Exceções
+
+- [] `403` se o usuário autenticado não for participante da reserva
+- [] `404` se a reserva não existir
+- [] `500` em caso de erro ao buscar dados no banco
+
+---
+
+## 3. Feedback dos Participantes sobre o Espaço
+
+### Envio de Feedback
+#### Sucesso
+
+- [] Recebe uma requisição `POST` em `/api/reserve/:reservationID/feedback`
+- [] Verifica se o usuário autenticado participou da reserva concluída
+- [] Valida os campos `nota` (1-5) e `comentário`
+- [] Salva o feedback no banco e vincula ao espaço reservado
+- [] Retorna `201` com confirmação do feedback
+
+#### Exceções
+
+- [] `400` se a `nota` ou `comentário` estiverem ausentes ou inválidos
+- [] `403` se o usuário não for um participante da reserva
+- [] `404` se a reserva não existir ou ainda estiver ativa
+- [] `500` em caso de erro ao salvar feedback no banco
+
+---
+
+## 4. Cancelamento de Participação na Reserva
+
+### Cancelar Participação
+#### Sucesso
+
+- [] Recebe uma requisição `DELETE` em `/api/reserve/:reservationID/participant/:userID`
+- [] Verifica se o usuário autenticado é o criador da reserva ou o próprio participante que deseja cancelar
+- [] Remove o participante da lista de convidados para a reserva
+- [] Retorna `200` com confirmação do cancelamento
+
+#### Exceções
+
+- [] `403` se o usuário autenticado não for o criador da reserva ou o participante em questão
+- [] `404` se a reserva ou o participante não existirem
+- [] `500` em caso de erro ao remover o participante do banco de dados
