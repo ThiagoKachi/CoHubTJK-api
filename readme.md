@@ -139,7 +139,7 @@
   -  Listar feedbacks por reserva ✅
   -  Listar reservas por usuário ✅
   -  Deletar espaço (ADMIN) ✅
-  -  Editar espaço (ADMIN)
+  -  Editar espaço (ADMIN) ✅
   -  Melhorar mensagens de erro
   -------------
   - Adicionar tabela de horários em cada espaço

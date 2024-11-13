@@ -6,8 +6,7 @@ import { AddSpace } from '@domain/usecases/space/add-space';
 export class DbAddSpace implements AddSpace {
   constructor(private readonly addSpaceRepository: AddSpaceRepository) {}
 
-  async add(spaceData: AddSpaceModel): Promise<SpaceModel | null> {
+  async add(spaceData: AddSpaceModel): Promise<SpaceModel> {
     return await this.addSpaceRepository.add(spaceData);
-
   }
 }

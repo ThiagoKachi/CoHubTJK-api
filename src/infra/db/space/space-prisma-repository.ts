@@ -3,7 +3,9 @@ import { DeleteSpaceRepository } from '@data/protocols/db/space/delete-space-rep
 import { LoadSpaceByIdRepository } from '@data/protocols/db/space/load-space-by-id';
 import { LoadSpacesRepository } from '@data/protocols/db/space/load-spaces-repository';
 import { UpdateSpaceAvailabilityRepository } from '@data/protocols/db/space/update-space-availability-repository';
+import { UpdateSpaceRepository } from '@data/protocols/db/space/update-space-repository';
 import { SpaceModel } from '@domain/models/space/space';
+import { UpdateSpaceModel } from '@domain/models/space/update-space';
 import { ListSpacesFilters } from '@domain/usecases/space/load-spaces';
 import { prismaClient } from '../prismaClient';
 
@@ -18,14 +20,26 @@ function validateFields(fields: string[] | string) {
   return validFields;
 }
 
-export class SpacePrismaRepository
-implements
-    AddSpaceRepository,
-    LoadSpacesRepository,
-    UpdateSpaceAvailabilityRepository,
-    LoadSpaceByIdRepository,
-    DeleteSpaceRepository
-{
+export class SpacePrismaRepository implements
+  AddSpaceRepository,
+  LoadSpacesRepository,
+  UpdateSpaceAvailabilityRepository,
+  LoadSpaceByIdRepository,
+  DeleteSpaceRepository,
+  UpdateSpaceAvailabilityRepository,
+  UpdateSpaceRepository {
+  async updateSpace(spaceId: string, spaceData: UpdateSpaceModel): Promise<SpaceModel> {
+    const space = await prismaClient.space.update({ where: { id: spaceId }, data: spaceData });
+
+    return {
+      ...space,
+      price: Number(space.price),
+      created_at: new Date(space.created_at).toISOString(),
+      updated_at: new Date(space.updated_at).toISOString(),
+      complement: space.complement === null ? undefined : space.complement,
+    };
+  }
+
   async delete(spaceId: string): Promise<void> {
     await prismaClient.space.delete({ where: { id: spaceId } });
   }
