@@ -1,7 +1,7 @@
 import { DbAddAccount } from '@data/usecases/account/db-add-account';
 import { BcryptAdapter } from '@infra/cryptography/bcrypt-adapter';
 import { AccountPrismaRepository } from '@infra/db/account/account-prisma-repository';
-import { SignupValidatorAdapter } from '@infra/validation/signup-validation-adapter';
+import { SignupValidatorAdapter } from '@infra/validation/account/signup-validation-adapter';
 import { SignupController } from '@presentation/controllers/login/signup-controller';
 import { Controller } from '@presentation/protocols/controller';
 

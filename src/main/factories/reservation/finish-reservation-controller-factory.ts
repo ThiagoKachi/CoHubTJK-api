@@ -1,7 +1,7 @@
 import { DbFinishReservation } from '@data/usecases/reservation/db-finish-reservation';
 import { ReservationPrismaRepository } from '@infra/db/reservation/reservation-prisma-repository';
 import { SpacePrismaRepository } from '@infra/db/space/space-prisma-repository';
-import { FinishReservationValidatorAdapter } from '@infra/validation/finish-reservation-validation-adapter';
+import { FinishReservationValidatorAdapter } from '@infra/validation/reservation/finish-reservation-validation-adapter';
 import { FinishReservationController } from '@presentation/controllers/reservation/finish-reservation-controller';
 import { Controller } from '@presentation/protocols/controller';
 

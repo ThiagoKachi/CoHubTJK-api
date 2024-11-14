@@ -2,7 +2,7 @@ import { DbAuthentication } from '@data/usecases/account/db-authentication';
 import { BcryptAdapter } from '@infra/cryptography/bcrypt-adapter';
 import { JWTAdapter } from '@infra/cryptography/jwt-adapter';
 import { AccountPrismaRepository } from '@infra/db/account/account-prisma-repository';
-import { SigninValidatorAdapter } from '@infra/validation/signin-validation-adapter';
+import { SigninValidatorAdapter } from '@infra/validation/account/signin-validation-adapter';
 import { env } from '@main/config/env';
 import { LoginController } from '@presentation/controllers/login/login-controller';
 import { Controller } from '@presentation/protocols/controller';

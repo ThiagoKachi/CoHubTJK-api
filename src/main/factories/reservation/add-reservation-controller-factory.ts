@@ -2,7 +2,7 @@ import { DbAddReservation } from '@data/usecases/reservation/db-add-reservation'
 import { AccountPrismaRepository } from '@infra/db/account/account-prisma-repository';
 import { ReservationPrismaRepository } from '@infra/db/reservation/reservation-prisma-repository';
 import { SpacePrismaRepository } from '@infra/db/space/space-prisma-repository';
-import { AddReservationValidatorAdapter } from '@infra/validation/create-reservation-validation-adapter';
+import { AddReservationValidatorAdapter } from '@infra/validation/reservation/create-reservation-validation-adapter';
 import { AddReservationController } from '@presentation/controllers/reservation/add-reservation-controller';
 import { Controller } from '@presentation/protocols/controller';
 

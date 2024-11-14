@@ -1,6 +1,6 @@
 import { DbAddSpace } from '@data/usecases/space/db-add-space';
 import { SpacePrismaRepository } from '@infra/db/space/space-prisma-repository';
-import { AddSpaceValidatorAdapter } from '@infra/validation/create-space-validation-adapter';
+import { AddSpaceValidatorAdapter } from '@infra/validation/space/create-space-validation-adapter';
 import { AddSpaceController } from '@presentation/controllers/space/add-space-controller';
 import { Controller } from '@presentation/protocols/controller';
 

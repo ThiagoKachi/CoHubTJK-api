@@ -1,6 +1,6 @@
 import { DbUpdateSpace } from '@data/usecases/space/db-update-space';
 import { SpacePrismaRepository } from '@infra/db/space/space-prisma-repository';
-import { UpdateSpaceValidatorAdapter } from '@infra/validation/update-space-validation-adapter';
+import { UpdateSpaceValidatorAdapter } from '@infra/validation/space/update-space-validation-adapter';
 import { UpdateSpaceController } from '@presentation/controllers/space/update-space-controller';
 import { Controller } from '@presentation/protocols/controller';
 

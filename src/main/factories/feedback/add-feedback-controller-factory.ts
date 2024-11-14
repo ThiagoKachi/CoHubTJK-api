@@ -3,7 +3,7 @@ import { AccountPrismaRepository } from '@infra/db/account/account-prisma-reposi
 import { FeedbackPrismaRepository } from '@infra/db/feedback/feedback-prisma-repository';
 import { ReservationPrismaRepository } from '@infra/db/reservation/reservation-prisma-repository';
 import { SpacePrismaRepository } from '@infra/db/space/space-prisma-repository';
-import { AddFeedbackValidatorAdapter } from '@infra/validation/create-feedback-validation-adapter';
+import { AddFeedbackValidatorAdapter } from '@infra/validation/feedback/create-feedback-validation-adapter';
 import { AddFeedbackController } from '@presentation/controllers/feedback/add-feedback-controller';
 import { Controller } from '@presentation/protocols/controller';
 
