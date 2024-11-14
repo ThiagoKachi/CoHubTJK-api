@@ -150,7 +150,7 @@ Para permitir que mais usuários sejam adicionados à mesma reserva, implementam
 ### Adicionar Participantes
 #### Sucesso
 
-- [] Recebe uma requisição `POST` em `/api/reserve/:reservationID/invite`
+- [] Recebe uma requisição `POST` em `/api/reservations/:reservationId/invite`
 - [] Verifica se o usuário autenticado é o criador da reserva
 - [] Valida o campo `email` dos convidados
 - [] Envia convites por email para cada usuário convidado
