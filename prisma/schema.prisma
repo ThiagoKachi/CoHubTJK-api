@@ -36,7 +36,7 @@ model Account {
 
 model Guest {
   id         String   @id @default(uuid()) @db.Uuid
-  email      String   @unique
+  email      String
   name       String
   created_at DateTime @default(now())
 
@@ -78,7 +78,6 @@ model Space {
 model Reservation {
   id          String    @id @default(uuid()) @db.Uuid
   date        DateTime
-  quantity    Int       @default(1)
   created_at  DateTime  @default(now())
   deleted_at  DateTime?
   finished_at DateTime?
@@ -98,7 +97,7 @@ model ReservationGuest {
   reservationId String @db.Uuid
   guestId       String @db.Uuid
 
-  reservation Reservation @relation(fields: [reservationId], references: [id])
+  reservation Reservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
   guest       Guest       @relation(fields: [guestId], references: [id])
 
   @@map("reservation_guests")

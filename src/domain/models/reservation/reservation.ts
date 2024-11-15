@@ -1,4 +1,6 @@
 import { FeedbackModel } from '../feedback/feedback';
+import { SpaceModel } from '../space/space';
+import { GuestReservationModel } from './guest';
 
 export interface ReservationModel {
   id: string;
@@ -9,4 +11,6 @@ export interface ReservationModel {
   accountId: string;
   spaceId: string;
   feedback?: FeedbackModel[] | null;
+  space?: SpaceModel | null;
+  guests?: GuestReservationModel[] | null;
 }
