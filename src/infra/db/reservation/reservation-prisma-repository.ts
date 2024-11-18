@@ -39,11 +39,17 @@ implements
   async send(
     inviteData: SendReservationInviteModel
   ): Promise<ReservationInviteModel[] | null> {
-    const guests = await Promise.all(
-      inviteData.guests.map((guest) =>
-        prismaClient.guest.create({ data: guest })
-      )
-    );
+    const guests = [];
+
+    for (const guestData of inviteData.guests) {
+      let guest = await prismaClient.guest.findFirst({ where: { email: guestData.email } });
+
+      if (!guest) {
+        guest = await prismaClient.guest.create({ data: guestData });
+      }
+
+      guests.push(guest);
+    }
 
     await prismaClient.reservationGuest.createMany({
       data: guests.map((guest) => ({
@@ -147,9 +153,13 @@ implements
       data: reservationData,
     });
 
-    const guest = await prismaClient.guest.create({
-      data: { email: account.email, name: account.name },
-    });
+    let guest = await prismaClient.guest.findFirst({ where: { email: account.email } });
+
+    if (!guest) {
+      guest = await prismaClient.guest.create({
+        data: { email: account.email, name: account.name },
+      });
+    }
 
     await prismaClient.reservationGuest.create({
       data: { reservationId: reservation.id, guestId: guest.id },
