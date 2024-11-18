@@ -151,7 +151,7 @@ Para permitir que mais usuários sejam adicionados à mesma reserva, implementam
 #### Sucesso
 
 - [x] Recebe uma requisição `POST` em `/api/reservations/:reservationId/invite`
-- [] Verifica se o usuário autenticado é o criador da reserva
+- [x] Verifica se o usuário autenticado é o criador da reserva
 - [x] Valida o campo `email` dos convidados
 - [x] Envia convites por email para cada usuário convidado
 - [x] Adiciona os usuários convidados à reserva no banco de dados
@@ -159,10 +159,10 @@ Para permitir que mais usuários sejam adicionados à mesma reserva, implementam
 
 #### Exceções
 
-- [] `400` se o `reservationID` ou `email` estiver em formato inválido
-- [] `403` se o usuário autenticado não for o criador da reserva
-- [] `409` se o usuário convidado já estiver na reserva
-- [] `500` em caso de erro ao enviar convites ou salvar dados no banco
+- [x] `400` se o `reservationID` ou `email` estiver em formato inválido
+- [x] `403` se o usuário autenticado não for o criador da reserva
+- [x] `409` se o usuário convidado já estiver na reserva
+- [x] `500` em caso de erro ao enviar convites ou salvar dados no banco
 
 ---
 

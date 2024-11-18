@@ -25,15 +25,18 @@ export class DbSendReservationInvite implements SendReservationInvite {
         if (reservation.accountId === reservationInvite.accountId) {
           const spaceCapacity = reservation.space?.capacity ?? 1;
 
-          if ((reservationInvite.guests.length + (reservation.guests?.length ?? 0)) <= (spaceCapacity - 1)) {
-            const guestsWithSameEmail = new Set(reservationInvite.guests.map(guest => guest.email)).size !== reservationInvite.guests.length;
+          if ((reservationInvite.guests.length + (reservation.guests?.length ?? 0)) <= (spaceCapacity)) {
+            const invites = [reservationInvite.guests, reservation.guests].flat();
+            const guestsWithSameEmail = new Set(invites.map(guest => guest?.email)).size !== invites.length;
 
             if (!guestsWithSameEmail) {
               await this.sendReservationInviteRepository.send(reservationInvite);
 
-              reservationInvite.guests.forEach(async (guest) => {
-                await this.sendInviteEmailService.send(guest, reservation);
-              });
+              await Promise.all(
+                reservationInvite.guests.map((guest) =>
+                  this.sendInviteEmailService.send(guest, reservation)
+                )
+              );
 
               return;
             }
@@ -45,6 +48,3 @@ export class DbSendReservationInvite implements SendReservationInvite {
     return null;
   }
 }
-
-// Quando criar a reserva, adiciona os dados do admin como guest
-// Verifica para não ter email duplicado na mesma reserva

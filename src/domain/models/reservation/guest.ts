@@ -7,4 +7,5 @@ export interface GuestReservationModel {
   id: string;
   reservationId: string;
   guestId: string;
+  email: string;
 }

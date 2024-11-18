@@ -11,7 +11,7 @@ export class DbAddReservation implements AddReservation {
     private readonly loadAccountByIdRepository: LoadAccountByIdRepository,
     private readonly loadSpaceByIdRepository: LoadSpaceByIdRepository,
     private readonly addReservationRepository: AddReservationRepository,
-    private readonly updateSpaceAvailabilityRepository: UpdateSpaceAvailabilityRepository
+    private readonly updateSpaceAvailabilityRepository: UpdateSpaceAvailabilityRepository,
   ) {}
 
   async add(reservation: AddReservationModel): Promise<ReservationModel | null> {
@@ -24,7 +24,7 @@ export class DbAddReservation implements AddReservation {
         const isAvailable = space.available;
 
         if (isAvailable) {
-          const reservationRes = await this.addReservationRepository.add(reservation);
+          const reservationRes = await this.addReservationRepository.add(reservation, account);
 
           await this.updateSpaceAvailabilityRepository.updateSpaceAvailability(reservation.spaceId, false);
 
