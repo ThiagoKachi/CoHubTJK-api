@@ -171,19 +171,37 @@ Para permitir que mais usuários sejam adicionados à mesma reserva, implementam
 ### Listar Participantes
 #### Sucesso
 
-- [] Recebe uma requisição `GET` em `/api/reserve/:reservationID/participants`
-- [] Verifica se o usuário autenticado está na lista de participantes da reserva ou é o criador
-- [] Retorna `200` com a lista de participantes (nome e email)
+- [x] Recebe uma requisição `GET` em `/api/reserve/:reservationID/participants`
+- [x] Verifica se o usuário autenticado está na lista de participantes da reserva ou é o criador
+- [x] Retorna `200` com a lista de participantes (nome e email)
 
 #### Exceções
 
-- [] `403` se o usuário autenticado não for participante da reserva
-- [] `404` se a reserva não existir
-- [] `500` em caso de erro ao buscar dados no banco
+- [x] `403` se o usuário autenticado não for participante da reserva
+- [x] `404` se a reserva não existir
+- [x] `500` em caso de erro ao buscar dados no banco
 
 ---
 
-## 3. Feedback dos Participantes sobre o Espaço
+## 3. Cancelamento de Participação na Reserva
+
+### Cancelar Participação
+#### Sucesso
+
+- [] Recebe uma requisição `DELETE` em `/api/reserve/:reservationID/participant/:userID`
+- [] Verifica se o usuário autenticado é o criador da reserva ou o próprio participante que deseja cancelar
+- [] Remove o participante da lista de convidados para a reserva
+- [] Retorna `200` com confirmação do cancelamento
+
+#### Exceções
+
+- [] `403` se o usuário autenticado não for o criador da reserva ou o participante em questão
+- [] `404` se a reserva ou o participante não existirem
+- [] `500` em caso de erro ao remover o participante do banco de dados
+
+---
+
+## 4. Feedback dos Participantes sobre o Espaço
 
 ### Envio de Feedback
 #### Sucesso
@@ -203,18 +221,8 @@ Para permitir que mais usuários sejam adicionados à mesma reserva, implementam
 
 ---
 
-## 4. Cancelamento de Participação na Reserva
-
-### Cancelar Participação
-#### Sucesso
-
-- [] Recebe uma requisição `DELETE` em `/api/reserve/:reservationID/participant/:userID`
-- [] Verifica se o usuário autenticado é o criador da reserva ou o próprio participante que deseja cancelar
-- [] Remove o participante da lista de convidados para a reserva
-- [] Retorna `200` com confirmação do cancelamento
-
-#### Exceções
-
-- [] `403` se o usuário autenticado não for o criador da reserva ou o participante em questão
-- [] `404` se a reserva ou o participante não existirem
-- [] `500` em caso de erro ao remover o participante do banco de dados
+<!--TODO:
+  Como o guest poderia ver as reservar em que ele faz parte?
+   - Lista de reservas com o email
+    - Guest vai poder verificar com o e-mail as reservar que ele faz/fez parte
+-->

@@ -2,12 +2,15 @@ import { AddReservationRepository } from '@data/protocols/db/reservation/add-res
 import { CancelReservationRepository } from '@data/protocols/db/reservation/cancel-reservation-repository';
 import { FinishReservationRepository } from '@data/protocols/db/reservation/finish-reservation-repository';
 import { LoadReservationByIdRepository } from '@data/protocols/db/reservation/load-reservation-by-id';
+import { LoadReservationGuestsRepository } from '@data/protocols/db/reservation/load-reservation-guests';
 import { LoadReservationsRepository } from '@data/protocols/db/reservation/load-reservations';
 import { SendReservationInviteRepository } from '@data/protocols/db/reservation/send-reservation-invite';
 import { AccountModel } from '@domain/models/account/account';
 import { AddReservationModel } from '@domain/models/reservation/add-reservation';
 import { CancelReservationModel } from '@domain/models/reservation/cancel-reservation';
 import { FinishReservationModel } from '@domain/models/reservation/finish-reservation';
+import { GuestModel } from '@domain/models/reservation/guest';
+import { LoadReservationGuestsModel } from '@domain/models/reservation/load-reservation-guests';
 import { LoadReservationsModel } from '@domain/models/reservation/load-reservations';
 import { ReservationModel } from '@domain/models/reservation/reservation';
 import { ReservationInviteModel } from '@domain/models/reservation/reservation-invite';
@@ -21,8 +24,18 @@ implements
     LoadReservationByIdRepository,
     FinishReservationRepository,
     LoadReservationsRepository,
-    SendReservationInviteRepository
+    SendReservationInviteRepository,
+    LoadReservationGuestsRepository
 {
+  async loadGuests({ reservationId }: LoadReservationGuestsModel): Promise<GuestModel[] | null> {
+    const guests = await prismaClient.reservationGuest.findMany({ where: { reservationId }, include: { guest: true } });
+
+    return guests.map((guest) => ({
+      ...guest.guest,
+      email: guest.guest.email,
+    }));
+  }
+
   async send(
     inviteData: SendReservationInviteModel
   ): Promise<ReservationInviteModel[] | null> {
