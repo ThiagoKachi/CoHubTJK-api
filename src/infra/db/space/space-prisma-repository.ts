@@ -86,7 +86,7 @@ export class SpacePrismaRepository implements
           : undefined,
       },
       include: {
-        adm: true,
+        adm: { select: { id: true, email: true, name: true } },
       },
     });
 

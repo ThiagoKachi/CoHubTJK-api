@@ -1,6 +1,7 @@
 import { AddReservationRepository } from '@data/protocols/db/reservation/add-reservation-repository';
 import { CancelReservationRepository } from '@data/protocols/db/reservation/cancel-reservation-repository';
 import { FinishReservationRepository } from '@data/protocols/db/reservation/finish-reservation-repository';
+import { LoadGuestReservationsRepository } from '@data/protocols/db/reservation/load-guest-reservations';
 import { LoadReservationByIdRepository } from '@data/protocols/db/reservation/load-reservation-by-id';
 import { LoadReservationGuestsRepository } from '@data/protocols/db/reservation/load-reservation-guests';
 import { LoadReservationsRepository } from '@data/protocols/db/reservation/load-reservations';
@@ -9,13 +10,14 @@ import { AccountModel } from '@domain/models/account/account';
 import { AddReservationModel } from '@domain/models/reservation/add-reservation';
 import { CancelReservationModel } from '@domain/models/reservation/cancel-reservation';
 import { FinishReservationModel } from '@domain/models/reservation/finish-reservation';
-import { GuestModel } from '@domain/models/reservation/guest';
+import { GuestModel, GuestReservationListModel } from '@domain/models/reservation/guest';
 import { LoadReservationGuestsModel } from '@domain/models/reservation/load-reservation-guests';
 import { LoadReservationsModel } from '@domain/models/reservation/load-reservations';
 import { ReservationModel } from '@domain/models/reservation/reservation';
 import { ReservationInviteModel } from '@domain/models/reservation/reservation-invite';
 import { SendReservationInviteModel } from '@domain/models/reservation/send-reservation-invite';
 import { prismaClient } from '../prismaClient';
+export type ReservationBasicInfo = Omit<ReservationModel, 'feedback' | 'space' | 'guests'>;
 
 export class ReservationPrismaRepository
 implements
@@ -25,10 +27,31 @@ implements
     FinishReservationRepository,
     LoadReservationsRepository,
     SendReservationInviteRepository,
-    LoadReservationGuestsRepository
+    LoadReservationGuestsRepository,
+    LoadGuestReservationsRepository
 {
-  async loadGuests({ reservationId }: LoadReservationGuestsModel): Promise<GuestModel[] | null> {
-    const guests = await prismaClient.reservationGuest.findMany({ where: { reservationId }, include: { guest: true } });
+  async loadGuestReservations(email: string): Promise<GuestReservationListModel> {
+    const reservations = await prismaClient.guest.findUnique({
+      where: { email },
+      include: {
+        reservation: {
+          include: {
+            reservation: { include: { space: true } },
+          },
+        },
+      },
+    });
+
+    return reservations ? reservations as any : [];
+  }
+
+  async loadGuests({
+    reservationId,
+  }: LoadReservationGuestsModel): Promise<GuestModel[] | null> {
+    const guests = await prismaClient.reservationGuest.findMany({
+      where: { reservationId },
+      include: { guest: true },
+    });
 
     return guests.map((guest) => ({
       ...guest.guest,
@@ -42,7 +65,9 @@ implements
     const guests = [];
 
     for (const guestData of inviteData.guests) {
-      let guest = await prismaClient.guest.findFirst({ where: { email: guestData.email } });
+      let guest = await prismaClient.guest.findFirst({
+        where: { email: guestData.email },
+      });
 
       if (!guest) {
         guest = await prismaClient.guest.create({ data: guestData });
@@ -105,8 +130,8 @@ implements
             guest: {
               select: {
                 email: true,
-              }
-            }
+              },
+            },
           },
         },
       },
@@ -134,13 +159,13 @@ implements
             id: guest.id,
             guestId: guest.guestId,
             reservationId: guest.reservationId,
-            email: guest.guest.email
+            email: guest.guest.email,
           };
 
           return {
             ...newGuest,
           };
-        })
+        }),
       }
     );
   }
@@ -153,7 +178,9 @@ implements
       data: reservationData,
     });
 
-    let guest = await prismaClient.guest.findFirst({ where: { email: account.email } });
+    let guest = await prismaClient.guest.findFirst({
+      where: { email: account.email },
+    });
 
     if (!guest) {
       guest = await prismaClient.guest.create({

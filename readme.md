@@ -220,9 +220,3 @@ Para permitir que mais usuários sejam adicionados à mesma reserva, implementam
 - [] `500` em caso de erro ao salvar feedback no banco
 
 ---
-
-<!--TODO:
-  Como o guest poderia ver as reservar em que ele faz parte?
-   - Lista de reservas com o email (Guest)
-    - Guest vai poder verificar com o e-mail as reservar que ele faz/fez parte
--->

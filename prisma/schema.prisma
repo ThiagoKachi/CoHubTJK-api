@@ -68,9 +68,9 @@ model Space {
   updated_at DateTime @updatedAt
   accountId  String   @db.Uuid
 
-  adm         Account       @relation(fields: [accountId], references: [id])
   Reservation Reservation[]
   feedback    Feedback[]
+  adm         Account       @relation(fields: [accountId], references: [id])
 
   @@map("spaces")
 }

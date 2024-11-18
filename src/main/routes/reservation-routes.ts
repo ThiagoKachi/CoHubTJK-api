@@ -2,6 +2,7 @@ import { adaptRoute } from '@main/adapters/fastify-route-adapter';
 import { makeReservationController } from '@main/factories/reservation/add-reservation-controller-factory';
 import { makeCancelReservationController } from '@main/factories/reservation/cancel-reservation-controller-factory';
 import { makeFinishReservationController } from '@main/factories/reservation/finish-reservation-controller-factory';
+import { makeLoadGuestReservationsController } from '@main/factories/reservation/load-guest-reservations-controller-factory';
 import { makeLoadReservationGuestsController } from '@main/factories/reservation/load-reservation-guests-controller-factory';
 import { makeLoadReservationsController } from '@main/factories/reservation/load-reservations-controller-factory';
 import { makeSendReservationInviteController } from '@main/factories/reservation/send-reservation-invite-controller-factory';
@@ -15,5 +16,6 @@ export async function reservationRoutes(fastify: FastifyInstance) {
   fastify.post('/reservations/finish', adaptRoute(makeFinishReservationController()));
   fastify.post('/reservations/:id/invite', adaptRoute(makeSendReservationInviteController()));
   fastify.get('/reservations', adaptRoute(makeLoadReservationsController()));
+  fastify.post('/reservations/guests', adaptRoute(makeLoadGuestReservationsController()));
   fastify.get('/reservations/:id/guests', adaptRoute(makeLoadReservationGuestsController()));
 }
