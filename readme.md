@@ -188,16 +188,16 @@ Para permitir que mais usuários sejam adicionados à mesma reserva, implementam
 ### Cancelar Participação
 #### Sucesso
 
-- [] Recebe uma requisição `DELETE` em `/api/reserve/:reservationID/participant/:userID`
-- [] Verifica se o usuário autenticado é o criador da reserva ou o próprio participante que deseja cancelar
-- [] Remove o participante da lista de convidados para a reserva
-- [] Retorna `200` com confirmação do cancelamento
+- [x] Recebe uma requisição `DELETE` em `/api/reservations/:reservationID/guest/cancel`
+- [x] Verifica se o usuário autenticado é o criador da reserva que deseja cancelar
+- [x] Remove o participante da lista de convidados para a reserva
+- [x] Retorna `200` com confirmação do cancelamento
 
 #### Exceções
 
-- [] `403` se o usuário autenticado não for o criador da reserva ou o participante em questão
-- [] `404` se a reserva ou o participante não existirem
-- [] `500` em caso de erro ao remover o participante do banco de dados
+- [x] `403` se o usuário autenticado não for o criador da reserva ou o participante em questão
+- [x] `404` se a reserva ou o participante não existirem
+- [x] `500` em caso de erro ao remover o participante do banco de dados
 
 ---
 

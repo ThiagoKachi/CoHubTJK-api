@@ -1,5 +1,4 @@
-
-import { DbCancelReservation } from '@data/usecases/reservation/db-cancel-reservation copy';
+import { DbCancelReservation } from '@data/usecases/reservation/db-cancel-reservation';
 import { ReservationPrismaRepository } from '@infra/db/reservation/reservation-prisma-repository';
 import { SpacePrismaRepository } from '@infra/db/space/space-prisma-repository';
 import { CancelReservationValidatorAdapter } from '@infra/validation/reservation/cancel-reservation-validation-adapter';

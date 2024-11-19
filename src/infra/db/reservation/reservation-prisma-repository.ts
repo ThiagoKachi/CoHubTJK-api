@@ -1,4 +1,5 @@
 import { AddReservationRepository } from '@data/protocols/db/reservation/add-reservation-repository';
+import { CancelGuestReservationRepository } from '@data/protocols/db/reservation/cancel-guest-reservation-repository';
 import { CancelReservationRepository } from '@data/protocols/db/reservation/cancel-reservation-repository';
 import { FinishReservationRepository } from '@data/protocols/db/reservation/finish-reservation-repository';
 import { LoadGuestReservationsRepository } from '@data/protocols/db/reservation/load-guest-reservations';
@@ -8,6 +9,7 @@ import { LoadReservationsRepository } from '@data/protocols/db/reservation/load-
 import { SendReservationInviteRepository } from '@data/protocols/db/reservation/send-reservation-invite';
 import { AccountModel } from '@domain/models/account/account';
 import { AddReservationModel } from '@domain/models/reservation/add-reservation';
+import { CancelGuestReservationModel } from '@domain/models/reservation/cancel-guest-reservation';
 import { CancelReservationModel } from '@domain/models/reservation/cancel-reservation';
 import { FinishReservationModel } from '@domain/models/reservation/finish-reservation';
 import { GuestModel, GuestReservationListModel } from '@domain/models/reservation/guest';
@@ -17,12 +19,12 @@ import { ReservationModel } from '@domain/models/reservation/reservation';
 import { ReservationInviteModel } from '@domain/models/reservation/reservation-invite';
 import { SendReservationInviteModel } from '@domain/models/reservation/send-reservation-invite';
 import { prismaClient } from '../prismaClient';
-export type ReservationBasicInfo = Omit<ReservationModel, 'feedback' | 'space' | 'guests'>;
 
 export class ReservationPrismaRepository
 implements
     AddReservationRepository,
     CancelReservationRepository,
+    CancelGuestReservationRepository,
     LoadReservationByIdRepository,
     FinishReservationRepository,
     LoadReservationsRepository,
@@ -30,6 +32,13 @@ implements
     LoadReservationGuestsRepository,
     LoadGuestReservationsRepository
 {
+  async cancelGuestReservation(cancelGuestReservationData: CancelGuestReservationModel): Promise<void> {
+    const reservationGuest = await prismaClient
+      .reservationGuest.findFirst({ where: { guest: { email: cancelGuestReservationData.email }, reservationId: cancelGuestReservationData.reservationId } });
+
+    await prismaClient.reservationGuest.delete({ where: { id: reservationGuest?.id } });
+  }
+
   async loadGuestReservations(email: string): Promise<GuestReservationListModel> {
     const reservations = await prismaClient.guest.findUnique({
       where: { email },

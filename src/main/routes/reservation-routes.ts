@@ -1,13 +1,20 @@
 import { adaptRoute } from '@main/adapters/fastify-route-adapter';
 import { makeReservationController } from '@main/factories/reservation/add-reservation-controller-factory';
+import { makeCancelGuestReservationController } from '@main/factories/reservation/cancel-guest-reservation-controller-factory';
 import { makeCancelReservationController } from '@main/factories/reservation/cancel-reservation-controller-factory';
 import { makeFinishReservationController } from '@main/factories/reservation/finish-reservation-controller-factory';
 import { makeLoadGuestReservationsController } from '@main/factories/reservation/load-guest-reservations-controller-factory';
 import { makeLoadReservationGuestsController } from '@main/factories/reservation/load-reservation-guests-controller-factory';
 import { makeLoadReservationsController } from '@main/factories/reservation/load-reservations-controller-factory';
 import { makeSendReservationInviteController } from '@main/factories/reservation/send-reservation-invite-controller-factory';
+import { adminAuth } from '@main/middlewares/admin-auth';
 import { auth } from '@main/middlewares/auth';
 import { FastifyInstance } from 'fastify';
+
+export async function reservationAdminRoutes(fastify: FastifyInstance) {
+  fastify.addHook('onRequest', adminAuth);
+  fastify.post('/reservations/:id/guest/cancel', adaptRoute(makeCancelGuestReservationController()));
+}
 
 export async function reservationRoutes(fastify: FastifyInstance) {
   fastify.addHook('onRequest', auth);
