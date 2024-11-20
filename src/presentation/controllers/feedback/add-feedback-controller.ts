@@ -18,15 +18,15 @@ export class AddFeedbackController implements Controller {
 
     const { body } = httpRequest;
 
-    const feedback = await this.addFeedback.add({ ...body, accountId: httpRequest.accountId });
+    const feedback = await this.addFeedback.add(body);
 
-    if (!feedback) {
+    if (feedback === null) {
       throw new AppError('The feedback is not available', 400);
     }
 
     return {
       statusCode: 201,
-      body: { feedback }
+      body: null
     };
   }
 }

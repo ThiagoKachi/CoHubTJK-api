@@ -135,12 +135,6 @@
 - [x] `403` se a reserva ainda não estiver concluída ou já tiver avaliação
 - [x] `500` em caso de erro ao salvar avaliação
 
- <!-- TODO:
-  - Mais usuários no mesmo espaço (Convites, feedbacks e etc...)
-  - Adicionar tabela de horários em cada espaço
-  - Fazer regras dos horários na reserva e espaço
-  -->
-
 ## Funcionalidade: Adicionar Múltiplos Usuários na Mesma Reserva
 
 Para permitir que mais usuários sejam adicionados à mesma reserva, implementamos funcionalidades de convite e gestão de participantes. Isso possibilita que o usuário criador da reserva adicione colegas ou clientes e colete feedbacks sobre o espaço após o uso.
@@ -206,17 +200,26 @@ Para permitir que mais usuários sejam adicionados à mesma reserva, implementam
 ### Envio de Feedback
 #### Sucesso
 
-- [] Recebe uma requisição `POST` em `/api/reserve/:reservationID/feedback`
-- [] Verifica se o usuário autenticado participou da reserva concluída
-- [] Valida os campos `nota` (1-5) e `comentário`
-- [] Salva o feedback no banco e vincula ao espaço reservado
-- [] Retorna `201` com confirmação do feedback
+- [x] Recebe uma requisição `POST` em `/api/reserve/:reservationID/feedback`
+- [x] Verifica se o usuário autenticado participou da reserva concluída
+- [x] Valida os campos `nota` (1-5) e `comentário`
+- [x] Salva o feedback no banco e vincula ao espaço reservado
+- [x] Retorna `201` com confirmação do feedback
 
 #### Exceções
 
-- [] `400` se a `nota` ou `comentário` estiverem ausentes ou inválidos
-- [] `403` se o usuário não for um participante da reserva
-- [] `404` se a reserva não existir ou ainda estiver ativa
-- [] `500` em caso de erro ao salvar feedback no banco
+- [x] `400` se a `nota` ou `comentário` estiverem ausentes ou inválidos
+- [x] `403` se o usuário não for um participante da reserva
+- [x] `404` se a reserva não existir ou ainda estiver ativa
+- [x] `500` em caso de erro ao salvar feedback no banco
 
 ---
+<!-- TODO:
+  - Aceitar ou não o convite (Via email)
+  - Ao cancelar a reserva (admin), dispara email
+  - Formatar erros
+  - Criar protocols para os arquivos
+  - Melhorar camada do "DB" na infra (retornos)
+  - Adicionar tabela de horários em cada espaço *
+  - Fazer regras dos horários na reserva e espaço *
+-->

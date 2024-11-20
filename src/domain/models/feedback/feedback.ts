@@ -4,6 +4,6 @@ export interface FeedbackModel {
   feedback?: string | null;
   created_at: string;
   reservationId: string;
-  accountId: string;
   spaceId: string;
+  guestId: string;
 }

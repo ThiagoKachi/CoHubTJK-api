@@ -29,7 +29,6 @@ model Account {
 
   spaces      Space[]
   Reservation Reservation[]
-  feedback    Feedback[]
 
   @@map("accounts")
 }
@@ -41,6 +40,7 @@ model Guest {
   created_at DateTime @default(now())
 
   reservation ReservationGuest[]
+  feedback    Feedback[]
 
   @@map("guests")
 }
@@ -110,12 +110,12 @@ model Feedback {
   created_at DateTime @default(now())
 
   reservationId String @db.Uuid
-  accountId     String @db.Uuid
   spaceId       String @db.Uuid
+  guestId       String @db.Uuid
 
   reservation Reservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
-  account     Account     @relation(fields: [accountId], references: [id])
   space       Space       @relation(fields: [spaceId], references: [id])
+  guest       Guest       @relation(fields: [guestId], references: [id])
 
   @@map("feedbacks")
 }
