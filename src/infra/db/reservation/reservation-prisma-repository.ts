@@ -139,6 +139,9 @@ implements
             guest: {
               select: {
                 email: true,
+                id: true,
+                name: true,
+                created_at: true,
               },
             },
           },
@@ -169,6 +172,8 @@ implements
             guestId: guest.guestId,
             reservationId: guest.reservationId,
             email: guest.guest.email,
+            name: guest.guest.name,
+            created_at: guest.guest.created_at,
           };
 
           return {

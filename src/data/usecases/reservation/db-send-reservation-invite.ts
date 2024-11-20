@@ -1,18 +1,16 @@
 import { LoadAccountByIdRepository } from '@data/protocols/db/account/load-account-by-id';
 import { LoadReservationByIdRepository } from '@data/protocols/db/reservation/load-reservation-by-id';
 import { SendReservationInviteRepository } from '@data/protocols/db/reservation/send-reservation-invite';
+import { EmailSender } from '@data/protocols/email/email-sender';
 import { SendReservationInviteModel } from '@domain/models/reservation/send-reservation-invite';
 import { SendReservationInvite } from '@domain/usecases/reservation/send-reservation-invite';
-import { SendInviteEmailService } from '@infra/email/send-invite';
-
-// Testar os possíveis erros
 
 export class DbSendReservationInvite implements SendReservationInvite {
   constructor(
     private readonly loadAccountByIdRepository: LoadAccountByIdRepository,
     private readonly loadReservationByIdRepository: LoadReservationByIdRepository,
     private readonly sendReservationInviteRepository: SendReservationInviteRepository,
-    private readonly sendInviteEmailService: SendInviteEmailService,
+    private readonly sendInviteEmailService: EmailSender,
   ) {}
 
   async send(reservationInvite: SendReservationInviteModel): Promise<void | null> {

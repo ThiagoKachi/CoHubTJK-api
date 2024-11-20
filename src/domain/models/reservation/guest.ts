@@ -12,6 +12,8 @@ export interface GuestReservationModel {
   reservationId: string;
   guestId: string;
   email: string;
+  name: string;
+  created_at: Date;
 }
 
 export interface GuestReservationListModel {
