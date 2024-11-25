@@ -1,3 +1,4 @@
+import { Encrypter } from '@data/protocols/cryptography/encrypter';
 import { LoadAccountByIdRepository } from '@data/protocols/db/account/load-account-by-id';
 import { LoadReservationByIdRepository } from '@data/protocols/db/reservation/load-reservation-by-id';
 import { SendReservationInviteRepository } from '@data/protocols/db/reservation/send-reservation-invite';
@@ -11,30 +12,65 @@ export class DbSendReservationInvite implements SendReservationInvite {
     private readonly loadReservationByIdRepository: LoadReservationByIdRepository,
     private readonly sendReservationInviteRepository: SendReservationInviteRepository,
     private readonly sendInviteEmailService: EmailSender,
+    private readonly encrypter: Encrypter
   ) {}
 
-  async send(reservationInvite: SendReservationInviteModel): Promise<void | null> {
-    const account = await this.loadAccountByIdRepository.loadById(reservationInvite.accountId);
+  async send(
+    reservationInvite: SendReservationInviteModel
+  ): Promise<void | null> {
+    const account = await this.loadAccountByIdRepository.loadById(
+      reservationInvite.accountId
+    );
 
     if (account) {
-      const reservation = await this.loadReservationByIdRepository.loadById(reservationInvite.reservationId);
+      const reservation = await this.loadReservationByIdRepository.loadById(
+        reservationInvite.reservationId
+      );
 
-      if (reservation && reservation.deleted_at === null && reservation.finished_at === null) {
+      if (
+        reservation &&
+        reservation.deleted_at === null &&
+        reservation.finished_at === null
+      ) {
         if (reservation.accountId === reservationInvite.accountId) {
           const spaceCapacity = reservation.space?.capacity ?? 1;
 
-          if ((reservationInvite.guests.length + (reservation.guests?.length ?? 0)) <= (spaceCapacity)) {
-            const invites = [reservationInvite.guests, reservation.guests].flat();
-            const guestsWithSameEmail = new Set(invites.map(guest => guest?.email)).size !== invites.length;
+          if (
+            reservationInvite.guests.length +
+              (reservation.guests?.length ?? 0) <=
+            spaceCapacity
+          ) {
+            const invites = [
+              reservationInvite.guests,
+              reservation.guests,
+            ].flat();
+            const guestsWithSameEmail =
+              new Set(invites.map((guest) => guest?.email)).size !==
+              invites.length;
 
             if (!guestsWithSameEmail) {
-              await this.sendReservationInviteRepository.send(reservationInvite);
-
-              await Promise.all(
-                reservationInvite.guests.map((guest) =>
-                  this.sendInviteEmailService.send(guest, reservation)
-                )
+              await this.sendReservationInviteRepository.send(
+                reservationInvite
               );
+
+              for (const guest of reservationInvite.guests!) {
+                const token = await this.encrypter.encrypt(
+                  JSON.stringify({
+                    guest,
+                    reservation: {
+                      ...reservation,
+                      space: undefined,
+                      feedback: undefined,
+                    },
+                  })
+                );
+
+                await this.sendInviteEmailService.send(
+                  guest,
+                  reservation,
+                  token
+                );
+              }
 
               return;
             }

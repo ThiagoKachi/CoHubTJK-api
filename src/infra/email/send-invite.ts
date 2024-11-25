@@ -12,7 +12,7 @@ const resend = new Resend(mail.config.secret);
 const sendInviteTemplate = path.resolve(__dirname, '.', 'views', 'send-invite.hbs');
 
 export class SendInviteEmailService implements EmailSender {
-  public async send(guest: GuestModel, reservation: ReservationModel): Promise<void> {
+  public async send(guest: GuestModel, reservation: ReservationModel, token: string): Promise<void> {
     const mailTemplate = new HandlebarsMailTemplate();
 
     const invite = {
@@ -21,6 +21,7 @@ export class SendInviteEmailService implements EmailSender {
         name: guest.name,
         date: new Date(reservation.date).toLocaleDateString('pt-BR'),
         space: reservation.space?.name ?? 'CoHubTJK',
+        url: `https://cohubtjk.thikachi.dev.br/reservation-invite/${token}`
       }
     };
 
