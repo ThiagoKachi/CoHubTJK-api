@@ -2,6 +2,7 @@ import { CancelReservationRepository } from '@data/protocols/db/reservation/canc
 import { FinishReservationRepository } from '@data/protocols/db/reservation/finish-reservation-repository';
 import { LoadReservationByIdRepository } from '@data/protocols/db/reservation/load-reservation-by-id';
 import { UpdateSpaceAvailabilityRepository } from '@data/protocols/db/space/update-space-availability-repository';
+import { CancelReservationEmailSender } from '@data/protocols/email/cancel-reservation';
 import { CancelReservationModel } from '@domain/models/reservation/cancel-reservation';
 import { CancelReservation } from '@domain/usecases/reservation/cancel-reservation';
 
@@ -11,6 +12,7 @@ export class DbCancelReservation implements CancelReservation {
     private readonly cancelReservationRepository: CancelReservationRepository,
     private readonly updateSpaceAvailabilityRepository: UpdateSpaceAvailabilityRepository,
     private readonly finishReservationRepository: FinishReservationRepository,
+    private readonly cancelReservationEmailSender: CancelReservationEmailSender,
   ) {}
 
   async cancel(cancelReservationData: CancelReservationModel): Promise<void | null> {
@@ -20,12 +22,16 @@ export class DbCancelReservation implements CancelReservation {
       if (cancelReservationData.accountId === reservation?.accountId) {
         await this.cancelReservationRepository.cancel(cancelReservationData);
 
-        await this.updateSpaceAvailabilityRepository.updateSpaceAvailability(cancelReservationData.spaceId, true);
+        await this.updateSpaceAvailabilityRepository.updateSpaceAvailability(reservation.spaceId, true);
 
         await this.finishReservationRepository.finish({
           accountId: cancelReservationData.accountId,
           reservationId: cancelReservationData.reservationId
         });
+
+        for (const guest of reservation.guests!) {
+          await this.cancelReservationEmailSender.send(reservation, guest);
+        }
 
         return;
       }

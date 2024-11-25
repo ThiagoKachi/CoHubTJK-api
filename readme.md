@@ -215,8 +215,16 @@ Para permitir que mais usuários sejam adicionados à mesma reserva, implementam
 
 ---
 <!-- TODO:
+  - Ao cancelar a reserva (admin), dispara email ✅
   - Aceitar ou não o convite (Via email)
-  - Ao cancelar a reserva (admin), dispara email
+  - Login como guest
+    - Cria uma senha para o guest quando cadastra o mesmo
+    - Manda um email para alterar a senha
+    - Faz login na plataforma e pode ver infos como:
+      - Reservas (Finalizadas e atuais)
+      - Convites pendentes
+      - Feedbacks pendentes
+      - Cancelar participação na reserva
   - Formatar erros
   - Criar protocols para os arquivos
   - Melhorar camada do "DB" na infra (retornos)
