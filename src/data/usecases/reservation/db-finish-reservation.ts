@@ -25,14 +25,16 @@ export class DbFinishReservation implements FinishReservation {
         await this.updateSpaceAvailabilityRepository.updateSpaceAvailability(reservation.spaceId, true);
 
         for (const guest of reservation.guests!) {
-          const token = await this.encrypter.encrypt(JSON.stringify({ guest }));
+          if (guest.invite_status === 'accepted') {
+            const token = await this.encrypter.encrypt(JSON.stringify({ guest }));
 
-          await this.sendEmailService.send({
-            created_at: guest.created_at,
-            id: guest.id,
-            email: guest.email,
-            name: guest.name
-          }, reservation, token);
+            await this.sendEmailService.send({
+              created_at: guest.created_at,
+              id: guest.id,
+              email: guest.email,
+              name: guest.name
+            }, reservation, token);
+          }
         }
 
         return;

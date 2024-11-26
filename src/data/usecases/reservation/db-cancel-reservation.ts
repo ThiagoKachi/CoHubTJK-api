@@ -30,7 +30,9 @@ export class DbCancelReservation implements CancelReservation {
         });
 
         for (const guest of reservation.guests!) {
-          await this.cancelReservationEmailSender.send(reservation, guest);
+          if (guest.invite_status === 'accepted') {
+            await this.cancelReservationEmailSender.send(reservation, guest);
+          }
         }
 
         return;

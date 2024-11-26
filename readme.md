@@ -215,15 +215,6 @@ Para permitir que mais usuários sejam adicionados à mesma reserva, implementam
 
 ---
 <!-- TODO:
-  - Ao cancelar a reserva (admin), dispara email ✅
-  - Aceitar ou não o convite (Via email)
-    - Cria use-case que recebe a resposta (Sim/Não) e o token ✅
-    - Verificar casos de uso da reserva para ver se o user aceitou o convite
-      - Quando finaliza a reserva, só envia email de feedback para users que aceitaram o convite
-      - Quando cancela a reserva, só envia email de aviso para users que aceitaram o convite
-      - Quando o user cancela a sua reserva, atualiza o banco
-      - Só lista as reservas que o user aceitou o convite
-
   - Login como guest
     - Cria uma senha para o guest quando cadastra o mesmo
     - Manda um email para alterar a senha
