@@ -18,6 +18,12 @@ enum Role {
   MEMBER
 }
 
+enum InviteStatus {
+  accepted
+  pending
+  declined
+}
+
 model Account {
   id         String   @id @default(uuid()) @db.Uuid
   email      String   @unique
@@ -93,9 +99,10 @@ model Reservation {
 }
 
 model ReservationGuest {
-  id            String @id @default(uuid()) @db.Uuid
-  reservationId String @db.Uuid
-  guestId       String @db.Uuid
+  id            String       @id @default(uuid()) @db.Uuid
+  reservationId String       @db.Uuid
+  guestId       String       @db.Uuid
+  invite_status InviteStatus @default(pending)
 
   reservation Reservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
   guest       Guest       @relation(fields: [guestId], references: [id])

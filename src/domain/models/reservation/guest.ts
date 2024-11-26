@@ -1,4 +1,5 @@
 import { ReservationModel } from './reservation';
+import { ReservationInviteResponseRes } from './reservation-invite-response';
 
 export interface GuestModel {
   id: string;
@@ -14,6 +15,7 @@ export interface GuestReservationModel {
   email: string;
   name: string;
   created_at: Date;
+  invite_status: ReservationInviteResponseRes;
 }
 
 export interface GuestReservationListModel {

@@ -6,6 +6,7 @@ import { makeFinishReservationController } from '@main/factories/reservation/fin
 import { makeLoadGuestReservationsController } from '@main/factories/reservation/load-guest-reservations-controller-factory';
 import { makeLoadReservationGuestsController } from '@main/factories/reservation/load-reservation-guests-controller-factory';
 import { makeLoadReservationsController } from '@main/factories/reservation/load-reservations-controller-factory';
+import { makeReservationInviteResponseController } from '@main/factories/reservation/reservation-invite-response-controller-factory';
 import { makeSendReservationInviteController } from '@main/factories/reservation/send-reservation-invite-controller-factory';
 import { adminAuth } from '@main/middlewares/admin-auth';
 import { auth } from '@main/middlewares/auth';
@@ -25,4 +26,5 @@ export async function reservationRoutes(fastify: FastifyInstance) {
   fastify.get('/reservations', adaptRoute(makeLoadReservationsController()));
   fastify.post('/reservations/guests', adaptRoute(makeLoadGuestReservationsController()));
   fastify.get('/reservations/:id/guests', adaptRoute(makeLoadReservationGuestsController()));
+  fastify.post('/reservations/guest/invite-response', adaptRoute(makeReservationInviteResponseController()));
 }

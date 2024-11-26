@@ -6,6 +6,7 @@ import { LoadGuestReservationsRepository } from '@data/protocols/db/reservation/
 import { LoadReservationByIdRepository } from '@data/protocols/db/reservation/load-reservation-by-id';
 import { LoadReservationGuestsRepository } from '@data/protocols/db/reservation/load-reservation-guests';
 import { LoadReservationsRepository } from '@data/protocols/db/reservation/load-reservations';
+import { ReservationInviteResponseRepository } from '@data/protocols/db/reservation/reservation-invite-response';
 import { SendReservationInviteRepository } from '@data/protocols/db/reservation/send-reservation-invite';
 import { AccountModel } from '@domain/models/account/account';
 import { AddReservationModel } from '@domain/models/reservation/add-reservation';
@@ -18,6 +19,7 @@ import { LoadReservationsModel } from '@domain/models/reservation/load-reservati
 import { ReservationModel } from '@domain/models/reservation/reservation';
 import { ReservationInviteModel } from '@domain/models/reservation/reservation-invite';
 import { SendReservationInviteModel } from '@domain/models/reservation/send-reservation-invite';
+import { InviteStatus } from '@prisma/client';
 import { prismaClient } from '../prismaClient';
 
 export class ReservationPrismaRepository
@@ -30,8 +32,17 @@ implements
     LoadReservationsRepository,
     SendReservationInviteRepository,
     LoadReservationGuestsRepository,
-    LoadGuestReservationsRepository
+    LoadGuestReservationsRepository,
+    ReservationInviteResponseRepository
 {
+  async changeResponse(email: string, response: InviteStatus): Promise<void | null> {
+    const reservationGuest = await prismaClient.reservationGuest.findFirst({ where: { guest: { email: email } } });
+
+    if (reservationGuest) {
+      await prismaClient.reservationGuest.update({ where: { id: reservationGuest?.id }, data: { invite_status: response } });
+    }
+  }
+
   async cancelGuestReservation(cancelGuestReservationData: CancelGuestReservationModel): Promise<void> {
     const reservationGuest = await prismaClient
       .reservationGuest.findFirst({ where: { guest: { email: cancelGuestReservationData.email }, reservationId: cancelGuestReservationData.reservationId } });
@@ -142,6 +153,9 @@ implements
                 id: true,
                 name: true,
                 created_at: true,
+                reservation: {
+                  select: { invite_status: true },
+                }
               },
             },
           },
@@ -174,6 +188,7 @@ implements
             email: guest.guest.email,
             name: guest.guest.name,
             created_at: guest.guest.created_at,
+            invite_status: guest.guest.reservation[0].invite_status
           };
 
           return {
