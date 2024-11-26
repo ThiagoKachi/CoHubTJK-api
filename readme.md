@@ -215,6 +215,7 @@ Para permitir que mais usuários sejam adicionados à mesma reserva, implementam
 
 ---
 <!-- TODO:
+  -> Features
   - Login como guest
     - Cria uma senha para o guest quando cadastra o mesmo
     - Manda um email para alterar a senha
@@ -223,9 +224,9 @@ Para permitir que mais usuários sejam adicionados à mesma reserva, implementam
       - Convites pendentes
       - Feedbacks pendentes
       - Cancelar participação na reserva
-  - Formatar erros
-  - Criar protocols para os arquivos
-  - Melhorar camada do "DB" na infra (retornos)
   - Adicionar tabela de horários em cada espaço *
   - Fazer regras dos horários na reserva e espaço *
+
+  -> Melhorias
+  - Formatar erros nos use-cases
 -->

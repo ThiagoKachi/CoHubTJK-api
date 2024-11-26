@@ -9,14 +9,12 @@ export class FeedbackPrismaRepository implements AddFeedbackRepository, LoadFeed
   async load({ reservationId }: LoadFeedbackModel): Promise<FeedbackModel[] | null> {
     const feedbacks = await prismaClient.feedback.findMany({ where: { reservationId } });
 
-    return feedbacks && feedbacks.map((feedback) => {
-      return { ...feedback, created_at: new Date(feedback.created_at).toISOString() };
-    });
+    return feedbacks && feedbacks;
   }
 
   async add(feedbackData: AddFeedbackModel): Promise<FeedbackModel> {
     const feedback = await prismaClient.feedback.create({ data: feedbackData });
 
-    return { ...feedback, created_at: new Date(feedback.created_at).toISOString() };
+    return { ...feedback };
   }
 }

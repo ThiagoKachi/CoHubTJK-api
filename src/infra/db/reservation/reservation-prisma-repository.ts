@@ -117,10 +117,7 @@ implements
     return reservations.map((reservation) => {
       return {
         ...reservation,
-        feedback: reservation?.feedback.map((feedback) => ({
-          ...feedback,
-          created_at: feedback.created_at.toISOString(),
-        })),
+        feedback: reservation?.feedback,
       };
     });
   }
@@ -166,15 +163,10 @@ implements
     return (
       reservation && {
         ...reservation,
-        feedback: reservation?.feedback.map((feedback) => ({
-          ...feedback,
-          created_at: feedback.created_at.toISOString(),
-        })),
+        feedback: reservation?.feedback,
         space: {
           ...reservation.space,
           price: Number(reservation.space.price),
-          created_at: new Date(reservation.space.created_at).toISOString(),
-          updated_at: new Date(reservation.space.updated_at).toISOString(),
           complement:
             reservation.space.complement === null
               ? undefined

@@ -34,9 +34,6 @@ export class SpacePrismaRepository implements
     return {
       ...space,
       price: Number(space.price),
-      created_at: new Date(space.created_at).toISOString(),
-      updated_at: new Date(space.updated_at).toISOString(),
-      complement: space.complement === null ? undefined : space.complement,
     };
   }
 
@@ -52,9 +49,6 @@ export class SpacePrismaRepository implements
     return {
       ...space,
       price: Number(space.price),
-      created_at: new Date(space.created_at).toISOString(),
-      updated_at: new Date(space.updated_at).toISOString(),
-      complement: space.complement === null ? undefined : space.complement,
     };
   }
 
@@ -93,22 +87,15 @@ export class SpacePrismaRepository implements
     return spaces.map((space) => ({
       ...space,
       price: Number(space.price),
-      created_at: new Date(space.created_at).toISOString(),
-      updated_at: new Date(space.updated_at).toISOString(),
-      complement: space.complement === null ? undefined : space.complement,
     }));
   }
 
   async add(spaceData: SpaceModel): Promise<SpaceModel> {
-    console.log(spaceData);
     const space = await prismaClient.space.create({ data: spaceData });
 
     return {
       ...space,
       price: Number(space.price),
-      created_at: new Date(space.created_at).toISOString(),
-      updated_at: new Date(space.updated_at).toISOString(),
-      complement: space.complement === null ? undefined : space.complement,
     };
   }
 }

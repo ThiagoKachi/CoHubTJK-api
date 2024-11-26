@@ -10,13 +10,13 @@ export interface SpaceModel {
   resources: string[];
   street: string;
   number: number;
-  complement?: string;
+  complement?: string | null;
   neighborhood: string;
   city: string;
   state: string;
   postal_code: string;
-  created_at: string;
-  updated_at: string;
+  created_at: Date;
+  updated_at: Date;
   accountId: string;
   available: boolean;
 }
