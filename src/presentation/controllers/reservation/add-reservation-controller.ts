@@ -2,7 +2,7 @@ import { AddReservation } from '@domain/usecases/reservation/add-reservation';
 import { AppError } from '@presentation/errors/AppError';
 import { Controller } from '@presentation/protocols/controller';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/http';
-import { AddReservationValidator } from '@validation/protocols/add-reservation-validator';
+import { AddReservationValidator } from '@validation/protocols/reservation/add-reservation-validator';
 
 export class AddReservationController implements Controller {
   constructor(

@@ -2,7 +2,7 @@ import { CancelGuestReservation } from '@domain/usecases/reservation/cancel-gues
 import { AppError } from '@presentation/errors/AppError';
 import { Controller } from '@presentation/protocols/controller';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/http';
-import { CancelGuestReservationValidator } from '@validation/protocols/cancel-guest-reservation-validator';
+import { CancelGuestReservationValidator } from '@validation/protocols/reservation/cancel-guest-reservation-validator';
 
 export class CancelGuestReservationController implements Controller {
   constructor(

@@ -2,7 +2,7 @@ import { AddFeedback } from '@domain/usecases/feedback/add-feedback';
 import { AppError } from '@presentation/errors/AppError';
 import { Controller } from '@presentation/protocols/controller';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/http';
-import { AddFeedbackValidator } from '@validation/protocols/add-feedback-validator';
+import { AddFeedbackValidator } from '@validation/protocols/feedback/add-feedback-validator';
 
 export class AddFeedbackController implements Controller {
   constructor(

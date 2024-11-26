@@ -2,7 +2,7 @@ import { UpdateSpace } from '@domain/usecases/space/updade-space';
 import { AppError } from '@presentation/errors/AppError';
 import { Controller } from '@presentation/protocols/controller';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/http';
-import { UpdateSpaceValidator } from '@validation/protocols/update-space-validator';
+import { UpdateSpaceValidator } from '@validation/protocols/space/update-space-validator';
 
 export class UpdateSpaceController implements Controller {
   constructor(

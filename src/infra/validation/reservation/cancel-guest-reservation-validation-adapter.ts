@@ -1,6 +1,6 @@
 import { CancelGuestReservationModel } from '@domain/models/reservation/cancel-guest-reservation';
 import { ValidationError } from '@domain/models/validation-error/validation-error';
-import { CancelGuestReservationValidator } from '@validation/protocols/cancel-guest-reservation-validator';
+import { CancelGuestReservationValidator } from '@validation/protocols/reservation/cancel-guest-reservation-validator';
 import { z } from 'zod';
 
 export class CancelGuestReservationValidatorAdapter implements CancelGuestReservationValidator {

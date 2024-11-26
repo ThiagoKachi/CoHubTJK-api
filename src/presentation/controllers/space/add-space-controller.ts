@@ -2,7 +2,7 @@ import { AddSpace } from '@domain/usecases/space/add-space';
 import { AppError } from '@presentation/errors/AppError';
 import { Controller } from '@presentation/protocols/controller';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/http';
-import { AddSpaceValidator } from '@validation/protocols/add-space-validator';
+import { AddSpaceValidator } from '@validation/protocols/space/add-space-validator';
 
 export class AddSpaceController implements Controller {
   constructor(

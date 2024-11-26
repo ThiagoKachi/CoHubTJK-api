@@ -1,6 +1,6 @@
 import { SendReservationInviteModel } from '@domain/models/reservation/send-reservation-invite';
 import { ValidationError } from '@domain/models/validation-error/validation-error';
-import { SendReservationInvitesValidator } from '@validation/protocols/send-reservation-invites-validator';
+import { SendReservationInvitesValidator } from '@validation/protocols/reservation/send-reservation-invites-validator';
 import { z } from 'zod';
 
 export class SendReservationInvitesValidatorAdapter implements SendReservationInvitesValidator {

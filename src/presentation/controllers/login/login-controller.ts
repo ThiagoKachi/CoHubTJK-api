@@ -2,7 +2,7 @@ import { Authentication } from '@domain/usecases/account/authentication';
 import { AppError } from '@presentation/errors/AppError';
 import { Controller } from '@presentation/protocols/controller';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/http';
-import { SigninValidator } from '@validation/protocols/signin-validator';
+import { SigninValidator } from '@validation/protocols/account/signin-validator';
 
 export class LoginController implements Controller {
   constructor(

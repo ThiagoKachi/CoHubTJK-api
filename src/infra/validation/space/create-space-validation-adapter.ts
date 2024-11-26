@@ -1,6 +1,6 @@
 import { AddSpaceModel } from '@domain/models/space/add-space';
 import { ValidationError } from '@domain/models/validation-error/validation-error';
-import { AddSpaceValidator } from '@validation/protocols/add-space-validator';
+import { AddSpaceValidator } from '@validation/protocols/space/add-space-validator';
 import { z } from 'zod';
 
 export class AddSpaceValidatorAdapter implements AddSpaceValidator {

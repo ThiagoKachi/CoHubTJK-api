@@ -1,6 +1,6 @@
 import { AuthenticationModel } from '@domain/models/account/authentication';
 import { ValidationError } from '@domain/models/validation-error/validation-error';
-import { SigninValidator } from '@validation/protocols/signin-validator';
+import { SigninValidator } from '@validation/protocols/account/signin-validator';
 import { z } from 'zod';
 
 export class SigninValidatorAdapter implements SigninValidator {

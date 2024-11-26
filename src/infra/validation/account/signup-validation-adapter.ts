@@ -1,6 +1,6 @@
 import { AddAccountModel } from '@domain/models/account/add-account';
 import { ValidationError } from '@domain/models/validation-error/validation-error';
-import { SignupValidator } from '@validation/protocols/signup-validator';
+import { SignupValidator } from '@validation/protocols/account/signup-validator';
 import { z } from 'zod';
 
 export class SignupValidatorAdapter implements SignupValidator {

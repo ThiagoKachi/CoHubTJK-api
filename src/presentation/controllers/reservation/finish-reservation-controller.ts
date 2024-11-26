@@ -2,7 +2,7 @@ import { FinishReservation } from '@domain/usecases/reservation/finish-reservati
 import { AppError } from '@presentation/errors/AppError';
 import { Controller } from '@presentation/protocols/controller';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/http';
-import { FinishReservationValidator } from '@validation/protocols/finish-reservation-validator';
+import { FinishReservationValidator } from '@validation/protocols/reservation/finish-reservation-validator';
 
 export class FinishReservationController implements Controller {
   constructor(

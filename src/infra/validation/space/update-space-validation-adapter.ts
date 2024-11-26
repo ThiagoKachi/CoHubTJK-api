@@ -1,6 +1,6 @@
 import { UpdateSpaceModel } from '@domain/models/space/update-space';
 import { ValidationError } from '@domain/models/validation-error/validation-error';
-import { UpdateSpaceValidator } from '@validation/protocols/update-space-validator';
+import { UpdateSpaceValidator } from '@validation/protocols/space/update-space-validator';
 import { z } from 'zod';
 
 export class UpdateSpaceValidatorAdapter implements UpdateSpaceValidator {

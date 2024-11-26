@@ -1,6 +1,6 @@
 import { AddFeedbackModel } from '@domain/models/feedback/add-feedback';
 import { ValidationError } from '@domain/models/validation-error/validation-error';
-import { AddFeedbackValidator } from '@validation/protocols/add-feedback-validator';
+import { AddFeedbackValidator } from '@validation/protocols/feedback/add-feedback-validator';
 import { z } from 'zod';
 
 export class AddFeedbackValidatorAdapter implements AddFeedbackValidator {

@@ -2,7 +2,7 @@ import { SendReservationInvite } from '@domain/usecases/reservation/send-reserva
 import { AppError } from '@presentation/errors/AppError';
 import { Controller } from '@presentation/protocols/controller';
 import { HttpRequest, HttpResponse } from '@presentation/protocols/http';
-import { SendReservationInvitesValidator } from '@validation/protocols/send-reservation-invites-validator';
+import { SendReservationInvitesValidator } from '@validation/protocols/reservation/send-reservation-invites-validator';
 
 export class SendReservationInviteController implements Controller {
   constructor(

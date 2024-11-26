@@ -1,6 +1,6 @@
 import { AddReservationModel } from '@domain/models/reservation/add-reservation';
 import { ValidationError } from '@domain/models/validation-error/validation-error';
-import { AddReservationValidator } from '@validation/protocols/add-reservation-validator';
+import { AddReservationValidator } from '@validation/protocols/reservation/add-reservation-validator';
 import { z } from 'zod';
 
 export class AddReservationValidatorAdapter implements AddReservationValidator {

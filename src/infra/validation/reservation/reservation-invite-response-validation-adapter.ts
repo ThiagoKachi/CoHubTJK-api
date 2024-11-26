@@ -1,6 +1,6 @@
 import { ReservationInviteResponseModel } from '@domain/models/reservation/reservation-invite-response';
 import { ValidationError } from '@domain/models/validation-error/validation-error';
-import { ReservationInviteResponseValidator } from '@validation/protocols/reservation-invite-response-validator';
+import { ReservationInviteResponseValidator } from '@validation/protocols/reservation/reservation-invite-response-validator';
 import { z } from 'zod';
 
 export class ReservationInviteResponseValidatorAdapter implements ReservationInviteResponseValidator {

@@ -1,6 +1,6 @@
 import { FinishReservationModel } from '@domain/models/reservation/finish-reservation';
 import { ValidationError } from '@domain/models/validation-error/validation-error';
-import { FinishReservationValidator } from '@validation/protocols/finish-reservation-validator';
+import { FinishReservationValidator } from '@validation/protocols/reservation/finish-reservation-validator';
 import { z } from 'zod';
 
 export class FinishReservationValidatorAdapter implements FinishReservationValidator {
