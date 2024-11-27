@@ -218,33 +218,30 @@ Para permitir que mais usuários sejam adicionados à mesma reserva, implementam
   -> Features
   - Adicionar tabela de horários em cada espaço
     Fluxo Detalhado para a Opção 3: Combinação de Horários Automáticos e Personalizáveis
-      1. Criação de Horários Automáticos:
-        - Quando um Host cria um novo Space, ele pode definir parâmetros básicos como:
-          - Dias de funcionamento (ex: segunda a sexta).
-          - Horários de abertura e fechamento (ex: 8h às 18h).
-          - Duração de cada TimeSlot (ex: 1 hora, 30 minutos, etc.).
-        - Os horários automáticos têm um status inicial de "available" e são atribuídos ao espaço.
+      1. Quando um Host cria um novo Space, ele pode definir parâmetros básicos como: ✅
+        - Dias de funcionamento (ex: segunda a sexta).
+        - Horários de abertura e fechamento (ex: 8h às 18h).
+        - Duração de cada TimeSlot (ex: 1 hora, 30 minutos, etc.).
 
-      2. Geração Automática de TimeSlots:
-      - Com base nesses parâmetros, seu sistema automaticamente gera os TimeSlots.
-      - Por exemplo, para uma segunda-feira com horários das 8h às 11h e slots de 1 hora:
-        - 8h - 9h (TimeSlot 1)
-        - 10h - 11h (TimeSlot 2)
+      2. Personalização pelo Host:
+        - Host pode dar update nas novas infos ✅
+        - O Host pode visualizar essa grade inicial e realizar as seguintes ações:
+          - API para listar os horários reservados do seu espaço
+          - Muda o atributo "type" no banco depois de editar manualmente
+          - Ativar ou Desativar horários específicos: Marcar horários como "unavailable". (Criar e editar)
+          - Adicionar horários personalizados: Criar horários fora da grade automática.
+          - Excluir horários desnecessários: Remover horários que não fazem sentido para o espaço.
 
-      3. Armazenamento no Banco de Dados:
+      3. Criação Dinâmica com Base na Demanda
+        - Descrição: Os horários são gerados de acordo com a demanda de reservas futuras. Sempre que um usuário solicita uma reserva, novos horários são criados automaticamente para os dias futuros ainda não gerados.
+
+      4. Armazenamento no Banco de Dados:
       - Cada TimeSlot é salvo na tabela TimeSlot com as informações:
         - spaceId: Referência ao espaço.
         - date: A data (ou dia da semana) para quando o slot está disponível.
         - startTime e endTime: Horário de início e fim.
         - status: Inicialmente marcado como available.
         - type: automatic (indicando que foi gerado automaticamente).
-
-      4. Personalização pelo Host:
-        - O Host pode visualizar essa grade inicial e realizar as seguintes ações:
-          - Ativar ou Desativar horários específicos: Marcar horários como "unavailable" ou "available".
-          - Adicionar horários personalizados: Criar horários fora da grade automática.
-          - Excluir horários desnecessários: Remover horários que não fazem sentido para o espaço.
-        - Cada horário pode conter informações adicionais, como capacidade máxima e tipo de uso.
 
       5. Gestão de Disponibilidade durante Reservas:
       - Criação de Reserva:
@@ -279,6 +276,7 @@ Para permitir que mais usuários sejam adicionados à mesma reserva, implementam
       - Aspectos a definir
     - Host, local e guest vão ter notas
 
+  - Usuários divididos entre Guest e Host
 
   -> Melhorias
   - Formatar erros nos use-cases

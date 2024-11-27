@@ -1,4 +1,11 @@
-export interface SpaceModel {
+export interface WorkingHours {
+  startTime: string;
+  endTime: string;
+  slotDuration: number;
+  daysOfWeek: string[];
+}
+
+export interface SpaceModel extends Omit<WorkingHours, 'workingHours'> {
   id: string;
   name: string;
   description: string;

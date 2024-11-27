@@ -1,3 +1,5 @@
+import { WorkingHours } from './space';
+
 export interface AddSpaceModel {
   name: string;
   description: string;
@@ -14,4 +16,5 @@ export interface AddSpaceModel {
   city: string;
   state: string;
   postal_code: string;
+  workingHours: WorkingHours;
 }

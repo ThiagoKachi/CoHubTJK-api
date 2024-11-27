@@ -1,12 +1,15 @@
 import { AddSpaceRepository } from '@data/protocols/db/space/add-space-repository';
+import { CreateSpaceTimeSlotsRepository } from '@data/protocols/db/space/create-space-time-slots-repository';
 import { DeleteSpaceRepository } from '@data/protocols/db/space/delete-space-repository';
 import { LoadSpaceByIdRepository } from '@data/protocols/db/space/load-space-by-id';
 import { LoadSpacesRepository } from '@data/protocols/db/space/load-spaces-repository';
 import { UpdateSpaceAvailabilityRepository } from '@data/protocols/db/space/update-space-availability-repository';
 import { UpdateSpaceRepository } from '@data/protocols/db/space/update-space-repository';
-import { SpaceModel } from '@domain/models/space/space';
+import { AddSpaceModel } from '@domain/models/space/add-space';
+import { SpaceModel, WorkingHours } from '@domain/models/space/space';
 import { UpdateSpaceModel } from '@domain/models/space/update-space';
 import { ListSpacesFilters } from '@domain/usecases/space/load-spaces';
+import { DaysOfWorkType } from '@prisma/client';
 import { prismaClient } from '../prismaClient';
 
 function validateFields(fields: string[] | string) {
@@ -27,9 +30,22 @@ export class SpacePrismaRepository implements
   LoadSpaceByIdRepository,
   DeleteSpaceRepository,
   UpdateSpaceAvailabilityRepository,
-  UpdateSpaceRepository {
+  UpdateSpaceRepository,
+  CreateSpaceTimeSlotsRepository {
+  async createTimeSlots(_spaceTimeSlotsData: WorkingHours): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+
   async updateSpace(spaceId: string, spaceData: UpdateSpaceModel): Promise<SpaceModel> {
-    const space = await prismaClient.space.update({ where: { id: spaceId }, data: spaceData });
+    const { workingHours, ...dataSpace } = spaceData;
+
+    const space = await prismaClient.space.update({ where: { id: spaceId }, data: {
+      ...dataSpace,
+      startTime: String(workingHours?.startTime),
+      endTime: String(workingHours?.endTime),
+      slotDuration: workingHours?.slotDuration,
+      daysOfWeek: workingHours?.daysOfWeek as DaysOfWorkType[]
+    }});
 
     return {
       ...space,
@@ -91,8 +107,18 @@ export class SpacePrismaRepository implements
     }));
   }
 
-  async add(spaceData: SpaceModel): Promise<SpaceModel> {
-    const space = await prismaClient.space.create({ data: spaceData });
+  async add(spaceData: AddSpaceModel & { accountId: string }): Promise<SpaceModel> {
+    const { workingHours, accountId, ...dataSpace } = spaceData;
+
+    const space = await prismaClient.space.create({
+      data: {
+        ...dataSpace,
+        startTime: String(workingHours.startTime),
+        endTime: String(workingHours.endTime),
+        slotDuration: workingHours.slotDuration,
+        daysOfWeek: workingHours.daysOfWeek as DaysOfWorkType[],
+        adm: { connect: { id: accountId } },
+      }});
 
     return {
       ...space,
