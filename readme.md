@@ -216,6 +216,45 @@ Para permitir que mais usuários sejam adicionados à mesma reserva, implementam
 ---
 <!-- TODO:
   -> Features
+  - Adicionar tabela de horários em cada espaço
+    Fluxo Detalhado para a Opção 3: Combinação de Horários Automáticos e Personalizáveis
+      1. Criação de Horários Automáticos:
+        - Quando um Host cria um novo Space, ele pode definir parâmetros básicos como:
+          - Dias de funcionamento (ex: segunda a sexta).
+          - Horários de abertura e fechamento (ex: 8h às 18h).
+          - Duração de cada TimeSlot (ex: 1 hora, 30 minutos, etc.).
+        - Os horários automáticos têm um status inicial de "available" e são atribuídos ao espaço.
+
+      2. Geração Automática de TimeSlots:
+      - Com base nesses parâmetros, seu sistema automaticamente gera os TimeSlots.
+      - Por exemplo, para uma segunda-feira com horários das 8h às 11h e slots de 1 hora:
+        - 8h - 9h (TimeSlot 1)
+        - 10h - 11h (TimeSlot 2)
+
+      3. Armazenamento no Banco de Dados:
+      - Cada TimeSlot é salvo na tabela TimeSlot com as informações:
+        - spaceId: Referência ao espaço.
+        - date: A data (ou dia da semana) para quando o slot está disponível.
+        - startTime e endTime: Horário de início e fim.
+        - status: Inicialmente marcado como available.
+        - type: automatic (indicando que foi gerado automaticamente).
+
+      4. Personalização pelo Host:
+        - O Host pode visualizar essa grade inicial e realizar as seguintes ações:
+          - Ativar ou Desativar horários específicos: Marcar horários como "unavailable" ou "available".
+          - Adicionar horários personalizados: Criar horários fora da grade automática.
+          - Excluir horários desnecessários: Remover horários que não fazem sentido para o espaço.
+        - Cada horário pode conter informações adicionais, como capacidade máxima e tipo de uso.
+
+      5. Gestão de Disponibilidade durante Reservas:
+      - Criação de Reserva:
+        - Ao reservar, o sistema marca os horários selecionados como "unavailable".
+      - Cancelamento de Reserva:
+        - Libera automaticamente os horários para "available".
+      - Conclusão de Reserva:
+        - Um cron job ou evento baseado no horário final da reserva redefine automaticamente o status para "available".
+
+-------------------------------------------------------------------------------------------------
   - Login como guest
     - Cria uma senha para o guest quando cadastra o mesmo
     - Manda um email para alterar a senha
@@ -224,9 +263,31 @@ Para permitir que mais usuários sejam adicionados à mesma reserva, implementam
       - Convites pendentes
       - Feedbacks pendentes
       - Cancelar participação na reserva
-  - Adicionar tabela de horários em cada espaço *
-  - Fazer regras dos horários na reserva e espaço *
+
+  - Sistema de Avaliação de Hospedagem e Feedback Avançado
+    - Após o feedback dos guests, permita que os hosts também avaliem os guests individualmente
+    - Cada guest tem uma lista de feedbacks
+    - Quando termina a reserva o dono do local recebe um email para avaliar os guests
+    - Pode enviar uma nota! e uma mensagem?
+    - Coloca o feedback para cada guest que fez parte da reserva
+    - Verifica se o guest já não tem o feedback da reserva
+    - Verifica se é o dono do local que esta fazendo o feedback
+
+  - Mudar sistema de feedback
+    - Avaliar Host
+    - Avaliar Local
+      - Aspectos a definir
+    - Host, local e guest vão ter notas
+
 
   -> Melhorias
   - Formatar erros nos use-cases
+
+-> Features futuras (Avançado)
+- Recomendações Inteligentes
+ - Use aprendizado de máquina para recomendar hospedagens com base no histórico de reservas e feedbacks.
+  - Ferramentas:
+    - TensorFlow.js ou PyTorch para modelos de recomendação.
+    - Algoritmos baseados em Collaborative Filtering ou Matrix Factorization.
+
 -->
