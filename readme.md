@@ -226,11 +226,10 @@ Para permitir que mais usuários sejam adicionados à mesma reserva, implementam
       2. Personalização pelo Host:
         - Host pode dar update nas novas infos ✅
         - O Host pode visualizar essa grade inicial e realizar as seguintes ações:
-          - API para listar os horários reservados do seu espaço
-          - Muda o atributo "type" no banco depois de editar manualmente
-          - Ativar ou Desativar horários específicos: Marcar horários como "unavailable". (Criar e editar)
-          - Adicionar horários personalizados: Criar horários fora da grade automática.
-          - Excluir horários desnecessários: Remover horários que não fazem sentido para o espaço.
+          - API para listar os horários reservados do seu espaço ✅
+          - Adicionar horários personalizados: (Muda o atributo "type" no banco depois de editar manualmente)
+            - Criar horários fora da grade automática.
+            - Ativar ou Desativar horários específicos: Marcar horários como "unavailable".
 
       3. Criação Dinâmica com Base na Demanda
         - Descrição: Os horários são gerados de acordo com a demanda de reservas futuras. Sempre que um usuário solicita uma reserva, novos horários são criados automaticamente para os dias futuros ainda não gerados.

@@ -98,6 +98,7 @@ export class SpacePrismaRepository implements
       include: {
         adm: { select: { id: true, email: true, name: true } },
         feedback: true,
+        timeSlot: true,
       },
     });
 

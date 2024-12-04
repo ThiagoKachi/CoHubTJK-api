@@ -1,3 +1,5 @@
+import { SpaceTimeSlotsModel } from '../time-slots/space-time-slots';
+
 export interface WorkingHours {
   startTime: string;
   endTime: string;
@@ -26,4 +28,5 @@ export interface SpaceModel extends Omit<WorkingHours, 'workingHours'> {
   updated_at: Date;
   accountId: string;
   available: boolean;
+  timeSlot?: SpaceTimeSlotsModel[];
 }
