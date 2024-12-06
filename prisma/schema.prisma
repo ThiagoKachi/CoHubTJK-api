@@ -137,8 +137,8 @@ model TimeSlot {
   id        String         @id @default(uuid()) @db.Uuid
   spaceId   String         @db.Uuid
   date      DateTime
-  startTime DateTime
-  endTime   DateTime
+  startTime Int
+  endTime   Int
   status    TimeSlotStatus
   type      TimeSlotType
 

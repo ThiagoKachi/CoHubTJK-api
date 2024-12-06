@@ -7,9 +7,9 @@ export class LoadSpaceTimeSlotsController implements Controller {
   constructor(private readonly loadSpaceTimeSlots: LoadSpaceTimeSlots) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    const { query } = httpRequest;
+    const { params } = httpRequest;
 
-    const timeSlots = await this.loadSpaceTimeSlots.load({ accountId: httpRequest.accountId!, spaceId: query.spaceId });
+    const timeSlots = await this.loadSpaceTimeSlots.load({ accountId: httpRequest.accountId!, spaceId: params.spaceId });
 
     if (timeSlots === null) {
       throw new AppError('No time slots found', 400);
